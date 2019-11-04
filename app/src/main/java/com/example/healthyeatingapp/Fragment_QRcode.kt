@@ -6,6 +6,7 @@ import android.annotation.TargetApi
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -14,6 +15,7 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -25,8 +27,9 @@ import java.io.IOException
  * A simple [Fragment] subclass.
  */
 class Fragment_QRcode : Fragment() {
+    private var listener: OnFragmentInteractionListener? = null
     var allPermissionsGrantedFlag: Int = 1
-    var jsonURL = ""
+    var jsonText = ""
 
     private val permissionList = arrayOf(
         Manifest.permission.CAMERA,
@@ -37,10 +40,9 @@ class Fragment_QRcode : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment__qrcode, container, false)
+        val view : View = inflater.inflate(R.layout.fragment__qrcode, container, false)
         // Inflate the layout for this fragment
         val cameraView = view.findViewById<SurfaceView>(R.id.qrcode_surfaceView)
-        val tvCodeInfo = view.findViewById<TextView>(R.id.qrcode_textView)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (allPermissionsEnabled()) {
                 allPermissionsGrantedFlag = 1
@@ -83,21 +85,23 @@ class Fragment_QRcode : Fragment() {
 
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
-
             }
 
             override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
                 val barcodes = detections?.detectedItems
 
                 if (barcodes?.size() != 0) {
-                    if (jsonURL != barcodes?.valueAt(0)?.displayValue) {
+                    if (jsonText != barcodes?.valueAt(0)?.displayValue) {
                         vibratePhone()
-                        jsonURL = barcodes?.valueAt(0)?.displayValue!!
-                        JSONParser(activity!!, jsonURL, tvCodeInfo).execute()
-//                        InternetJSON(this@MainActivity, jsonURL, tvCodeInfo).execute()
-                        barcodeDetector.release()
-                    }
+                        jsonText = barcodes?.valueAt(0)?.displayValue!!
 
+                        listener?.onFragmentInteractionQRCode(
+                            JSONParser(
+                                activity!!,
+                                jsonText
+                            ).execute().get()
+                        )
+                    }
                 }
             }
         })
@@ -148,5 +152,23 @@ class Fragment_QRcode : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnFragmentInteractionListener {
+        fun onFragmentInteractionQRCode(result: DataRecord_Food?)
     }
 }

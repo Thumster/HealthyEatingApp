@@ -8,7 +8,20 @@
     <string name="navigation_maps">MAPS</string>
     <string name="navigation_profile">PROFILE</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    //QR Code
+    <string name="qrcode_title">Scan QR Code</string>
+    <string name="qrcode_subtitle">Hold your camera to scan a QR Code for a food item. Please make sure it is by a valid vendor!</string>
+
+    //QR Code Confirmation
+    <string name="qrcodeconfirmation_textview_caloriesTitle">Calories:  </string>
+    <string name="qrcodeconfirmation_textview_fatsTitle">Fats:  </string>
+    <string name="qrcodeconfirmation_textview_proteinTitle">Protein:  </string>
+    <string name="qrcodeconfirmation_textview_carbohydrateTitle">Carbohydrates:  </string>
+    <string name="qrcodeconfirmation_textview_sodiumTitle">Sodium:  </string>
+    <string name="qrcodeconfirmation_textview_sugarTitle">Sugar:  </string>
+    <string name="qrcodeconfirmation_button_confirm">CONFIRM</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
