@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">HealthyEatingApp</string>
+
+    // Navigation Menu
+    <string name="navigation_dashboard">DASHBOARD</string>
+    <string name="navigation_wallet">WALLET</string>
+    <string name="navigation_qrcode">QRCODE</string>
+    <string name="navigation_maps">MAPS</string>
+    <string name="navigation_profile">PROFILE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
