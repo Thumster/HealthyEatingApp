@@ -22,12 +22,13 @@ class DBHelper_Transaction(context: Context) :
 
     companion object {
         val DATABASE_VERSION = 1
-        val DATABASE_NAME = "walletTransaction.db"
+        val DATABASE_NAME = TableInfo_Transaction.TABLE_NAME + ".db"
         var balance: Double = 0.0
 
         private val SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TableInfo_Transaction.TABLE_NAME + "(" +
                     TableInfo_Transaction.COLUMN_TRANSACTIONTYPE + " TEXT," +
+                    TableInfo_Transaction.COLUMN_TRANSACTIONNAME + " TEXT," +
                     TableInfo_Transaction.COLUMN_AMOUNT + " DOUBLE," +
                     TableInfo_Transaction.COLUMN_DATE_AND_TIME + " TEXT PRIMARY KEY" + ")"
 
@@ -63,6 +64,7 @@ class DBHelper_Transaction(context: Context) :
             TableInfo_Transaction.COLUMN_TRANSACTIONTYPE,
             transaction.transactionType.toString()
         )
+        values.put(TableInfo_Transaction.COLUMN_TRANSACTIONNAME, transaction.name)
         values.put(TableInfo_Transaction.COLUMN_AMOUNT, transaction.amount)
         values.put(TableInfo_Transaction.COLUMN_DATE_AND_TIME, transaction.transactionDate)
 
@@ -88,6 +90,7 @@ class DBHelper_Transaction(context: Context) :
         }
 
         var type: TransactionType
+        var name: String
         var amount: Double
         var date_and_time: String
         balance = 0.00
@@ -98,6 +101,8 @@ class DBHelper_Transaction(context: Context) :
                         cursor.getColumnIndex(TableInfo_Transaction.COLUMN_TRANSACTIONTYPE)
                     )
                 )
+                name =
+                    cursor.getString(cursor.getColumnIndex(TableInfo_Transaction.COLUMN_TRANSACTIONNAME))
                 amount =
                     cursor.getDouble(cursor.getColumnIndex(TableInfo_Transaction.COLUMN_AMOUNT))
                 date_and_time =
@@ -105,6 +110,7 @@ class DBHelper_Transaction(context: Context) :
                 transactions.add(
                     DataRecord_Transaction(
                         type,
+                        name,
                         amount,
                         date_and_time
                     )

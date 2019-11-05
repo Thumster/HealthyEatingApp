@@ -6,6 +6,7 @@ import java.util.*
 
 class DataRecord_Transaction(
     val transactionType: TransactionType,
+    val name: String,
     val amount: Double,
     val transactionDate: String
 )

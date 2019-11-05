@@ -108,6 +108,7 @@ class Fragment_Wallet : Fragment() {
         }
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val date_and_time = sdf.format(Date())
+        val transactionName = "TOP UP"
         amount = String.format("%.2f", amount).toDouble()
 
         emptyView.visibility = View.GONE
@@ -115,6 +116,7 @@ class Fragment_Wallet : Fragment() {
 
         val transactionToAdd = DataRecord_Transaction(
             TransactionType.DEBIT,
+            transactionName,
             amount,
             date_and_time
         )

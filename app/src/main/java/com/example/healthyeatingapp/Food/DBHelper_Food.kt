@@ -8,13 +8,14 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 class DBHelper_Food(context: Context) :
-    SQLiteOpenHelper(context,
+    SQLiteOpenHelper(
+        context,
         DATABASE_NAME, null,
         DATABASE_VERSION
     ) {
     companion object {
         val DATABASE_VERSION = 1
-        val DATABASE_NAME = "food.db"
+        val DATABASE_NAME = TableInfo_Food.TABLE_NAME + ".db"
 
         private val SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TableInfo_Food.TABLE_NAME + "(" +

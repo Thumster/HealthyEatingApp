@@ -152,6 +152,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         if (result) {
             val balance = DBHelper_Transaction.balance
             val foodPrice = food.price
+            val foodName = food.name
             var strResult = ""
 
             if (balance >= foodPrice) {
@@ -166,11 +167,12 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                 dbHelper_transaction.insertTransaction(
                     DataRecord_Transaction(
                         TransactionType.CREDIT,
+                        foodName,
                         foodPrice,
                         date_and_time
                     )
                 )
-                strResult = "SUCCESSFULLY purchased " + food.name + " for S$ " + String.format(
+                strResult = "SUCCESSFULLY purchased " + foodName + " for S$ " + String.format(
                     "%.2f",
                     foodPrice
                 )

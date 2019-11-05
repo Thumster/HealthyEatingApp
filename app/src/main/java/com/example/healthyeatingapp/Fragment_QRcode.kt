@@ -26,7 +26,7 @@ class Fragment_QRcode : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-		val view: View = inflater.inflate(R.layout.fragment__qrcode, container, false)
+        val view: View = inflater.inflate(R.layout.fragment__qrcode, container, false)
         val cameraView = view.findViewById<SurfaceView>(R.id.qrcode_surfaceView)
 
         val barcodeDetector = BarcodeDetector.Builder(activity)
@@ -35,6 +35,7 @@ class Fragment_QRcode : Fragment() {
 
         val cameraSource = CameraSource.Builder(activity, barcodeDetector)
             .setRequestedPreviewSize(640, 480)
+            .setAutoFocusEnabled(true)
             .build()
 
         cameraView.holder.addCallback(object : SurfaceHolder.Callback {
