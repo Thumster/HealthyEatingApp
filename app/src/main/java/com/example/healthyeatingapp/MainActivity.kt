@@ -19,7 +19,7 @@ import java.io.Serializable
 
 class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionListener,
     Fragment_QRCodeConfirmation.OnFragmentInteractionListener {
-//    ,Fragment_Wallet.OnFragmentInteractionListener
+//    ,Fragment_Wallet.OnFragmentInteractionListener 
 
     var allPermissionsGrantedFlag: Int = 0
     var cameraPermissionGrantedFlag: Int = 0
