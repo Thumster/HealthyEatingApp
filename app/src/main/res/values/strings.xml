@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HealthyEatingApp</string>
+    <string name="app_name">EatHealthyLah</string>
 
     // Navigation Menu
     <string name="navigation_dashboard">HOME</string>
@@ -25,6 +25,7 @@
     <string name="wallet_textview_balanceTitle">Balance: </string>
     <string name="wallet_textview_transactionsTitle">Transactions</string>
     <string name="wallet_button_topup">TOP UP</string>
+    <string name="wallet_textview_notransactions">No Past Transactions</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

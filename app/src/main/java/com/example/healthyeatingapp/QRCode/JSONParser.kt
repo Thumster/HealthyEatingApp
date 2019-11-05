@@ -59,7 +59,7 @@ class JSONParser(
             val sodium = jo.getInt("food_sodium")
             val sugar = jo.getInt("food_sugar")
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val date_and_time = sdf.format(Date())
 
             food = DataRecord_Food(

@@ -6,7 +6,12 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.healthyeatingapp.enumeration.TransactionType
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DBHelper_Transaction(context: Context) :
     SQLiteOpenHelper(
@@ -14,9 +19,11 @@ class DBHelper_Transaction(context: Context) :
         DATABASE_NAME, null,
         DATABASE_VERSION
     ) {
+
     companion object {
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "walletTransaction.db"
+        var balance: Double = 0.0
 
         private val SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TableInfo_Transaction.TABLE_NAME + "(" +
@@ -46,6 +53,7 @@ class DBHelper_Transaction(context: Context) :
 
         val clearDBQuery: String = "DELETE FROM " + TableInfo_Transaction.TABLE_NAME
         db.execSQL(clearDBQuery)
+        balance = 0.00
     }
 
     fun insertTransaction(transaction: DataRecord_Transaction): Boolean {
@@ -57,6 +65,12 @@ class DBHelper_Transaction(context: Context) :
         )
         values.put(TableInfo_Transaction.COLUMN_AMOUNT, transaction.amount)
         values.put(TableInfo_Transaction.COLUMN_DATE_AND_TIME, transaction.transactionDate)
+
+        if (transaction.transactionType == TransactionType.DEBIT) {
+            balance += transaction.amount
+        } else {
+            balance -= transaction.amount
+        }
 
         val newRowId = db.insert(TableInfo_Transaction.TABLE_NAME, null, values)
         return true
@@ -76,6 +90,7 @@ class DBHelper_Transaction(context: Context) :
         var type: TransactionType
         var amount: Double
         var date_and_time: String
+        balance = 0.00
         if (cursor.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 type = TransactionType.valueOf(
@@ -94,9 +109,24 @@ class DBHelper_Transaction(context: Context) :
                         date_and_time
                     )
                 )
+
+                if (type == TransactionType.DEBIT) {
+                    balance += amount
+                } else {
+                    balance -= amount
+                }
+
                 cursor.moveToNext()
             }
         }
-        return transactions
+
+        return ArrayList(transactions.sortedByDescending { dateTimeStrToLocalDateTime(selector(it)) })
     }
+
+    fun selector(t: DataRecord_Transaction): String = t.transactionDate
+
+    fun dateTimeStrToLocalDateTime(input: String): LocalDateTime =
+        LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+
 }

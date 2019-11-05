@@ -46,7 +46,7 @@ class TransactionAdapter(private val myDataset: ArrayList<DataRecord_Transaction
         var transactionAmount = ""
         if (transactionType == TransactionType.DEBIT) {
             transactionAmount += "+ S$ "
-        } else {
+        } else if (transactionType == TransactionType.CREDIT) {
             transactionAmount += "- S$ "
         }
         transactionAmount += transaction.amount.toString()

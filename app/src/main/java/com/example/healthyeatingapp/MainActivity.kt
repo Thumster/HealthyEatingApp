@@ -14,12 +14,16 @@ import com.example.healthyeatingapp.Food.DBHelper_Food
 import com.example.healthyeatingapp.Food.DataRecord_Food
 import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
 import com.example.healthyeatingapp.Wallet.DataRecord_Transaction
+import com.example.healthyeatingapp.enumeration.TransactionType
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionListener,
-    Fragment_QRCodeConfirmation.OnFragmentInteractionListener {
-//    ,Fragment_Wallet.OnFragmentInteractionListener
+    Fragment_QRCodeConfirmation.OnFragmentInteractionListener,
+    Fragment_Profile.OnFragmentInteractionListener {
 
     var allPermissionsGrantedFlag: Int = 0
     var cameraPermissionGrantedFlag: Int = 0
@@ -146,34 +150,52 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
 
     override fun onFragmentInteractionQRCodeConfirmation(result: Boolean) {
         if (result) {
-            dbHelper_food.insertFood(food)
+            val balance = DBHelper_Transaction.balance
+            val foodPrice = food.price
+            var strResult = ""
 
-//            dbHelper_food.clearDatabase()
-            var foods = dbHelper_food.readAllFoods()
-            var str: String = ""
-            for (food in foods)
-                str += food.name + "\n"
+            if (balance >= foodPrice) {
+                dbHelper_food.insertFood(food)
 
-            Toast.makeText(this, "SUCCESS!\n" + str, Toast.LENGTH_LONG).show()
-            bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
+//                var foods = dbHelper_food.readAllFoods()
+//                var str: String = ""
+//                for (food in foods)
+//                    str += food.name + "\n"
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                val date_and_time = sdf.format(Date())
+                dbHelper_transaction.insertTransaction(
+                    DataRecord_Transaction(
+                        TransactionType.CREDIT,
+                        foodPrice,
+                        date_and_time
+                    )
+                )
+                strResult = "SUCCESSFULLY purchased " + food.name + " for S$ " + String.format(
+                    "%.2f",
+                    foodPrice
+                )
+                bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
+            } else {
+                strResult = "INSUFFICIENT BALANCE: Please Top Up your wallet!"
+                bottomNavigationView.setSelectedItemId(R.id.navigation_wallet)
+            }
+            Toast.makeText(
+                this,
+                strResult,
+                Toast.LENGTH_LONG
+            ).show()
+
+
         }
     }
 
-//    override fun onFragmentInteractionWallet(transaction: DataRecord_Transaction?) {
-//        if (transaction != null) {
-//            dbHelper_transaction.insertTransaction(transaction)
-//
-////            dbHelper_transaction.clearDatabase()
-//
-//            var transactions = dbHelper_transaction.readAllTransactions()
-//            var str: String = ""
-//            for (transaction in transactions)
-//                str += transaction.transactionDate + "\n"
-//
-//            Toast.makeText(this, "SUCCESS!\n" + str, Toast.LENGTH_LONG).show()
-////            bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
-//        }
-//    }
+    override fun onFragmentInteractionProfileDeleteDatabase(boo: Boolean) {
+        if (boo) {
+            dbHelper_transaction.clearDatabase()
+            dbHelper_food.clearDatabase()
+            Toast.makeText(this, "SUCCESSFULLY DELETED DATABASE!", Toast.LENGTH_LONG).show()
+        }
+    }
 
     //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
     //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
@@ -230,7 +252,10 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
                 @TargetApi(Build.VERSION_CODES.M)
                 if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
-                    AlertDialog.Builder(this)
+                    MaterialAlertDialogBuilder(
+                        this,
+                        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+                    )
                         .setMessage("Press Permissions to Decide Permission Again")
                         .setPositiveButton("Permissions") { dialog, which -> setupMultiplePermissions() }
                         .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
@@ -248,7 +273,10 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
                 @TargetApi(Build.VERSION_CODES.M)
                 if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
-                    AlertDialog.Builder(this)
+                    MaterialAlertDialogBuilder(
+                        this,
+                        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+                    )
                         .setMessage("Press Permissions to Decide Permission Again")
                         .setPositiveButton("Permissions") { dialog, which -> setupCameraPermission() }
                         .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
@@ -258,6 +286,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             }
             if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 cameraPermissionGrantedFlag = 1
+                bottomNavigationView.setSelectedItemId(R.id.navigation_qrcode)
             }
         }
 
@@ -266,7 +295,10 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
                 @TargetApi(Build.VERSION_CODES.M)
                 if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
-                    AlertDialog.Builder(this)
+                    MaterialAlertDialogBuilder(
+                        this,
+                        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+                    )
                         .setMessage("Press Permissions to Decide Permission Again")
                         .setPositiveButton("Permissions") { dialog, which -> setupLocationPermission() }
                         .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
@@ -276,6 +308,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             }
             if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 locationPermissionGrantedFlag = 1
+                bottomNavigationView.setSelectedItemId(R.id.navigation_map)
             }
 
         }
