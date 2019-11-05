@@ -14,6 +14,7 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.IOException
 
 
@@ -25,7 +26,7 @@ class Fragment_QRcode : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment__qrcode, container, false)
+		val view: View = inflater.inflate(R.layout.fragment__qrcode, container, false)
         val cameraView = view.findViewById<SurfaceView>(R.id.qrcode_surfaceView)
 
         val barcodeDetector = BarcodeDetector.Builder(activity)
