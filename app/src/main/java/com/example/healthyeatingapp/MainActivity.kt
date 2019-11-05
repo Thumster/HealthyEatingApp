@@ -1,13 +1,25 @@
 package com.example.healthyeatingapp
 
-import android.net.Uri
+import android.Manifest
+import android.annotation.TargetApi
+import android.app.AlertDialog
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionListener,
     Fragment_QRCodeConfirmation.OnFragmentInteractionListener {
+
+    var allPermissionsGrantedFlag: Int = 0
+    private val permissionList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var dbHelper_food: DBHelper_Food
@@ -17,6 +29,18 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (allPermissionsEnabled()) {
+                allPermissionsGrantedFlag = 1
+            } else {
+                setupMultiplePermissions()
+                allPermissionsEnabled()
+            }
+        } else {
+            allPermissionsGrantedFlag = 1
+            Log.e("VALUE", "1")
+        }
 
         if (savedInstanceState == null) {
             val fragment = Fragment_Dashboard()
@@ -58,14 +82,18 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_qrcode -> {
-                    val fragment = Fragment_QRcode()
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.main_fragmentLayout,
-                        fragment,
-                        fragment.javaClass.getSimpleName()
-                    )
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
+                    if (allPermissionsGrantedFlag == 1) {
+                        val fragment = Fragment_QRcode()
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.main_fragmentLayout,
+                            fragment,
+                            fragment.javaClass.getSimpleName()
+                        )
+                            .commit()
+                        return@OnNavigationItemSelectedListener true
+                    } else {
+                        setupMultiplePermissions()
+                    }
                 }
                 R.id.navigation_map -> {
                     val fragment = Fragment_Maps()
@@ -116,4 +144,49 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun allPermissionsEnabled(): Boolean {
+        var result: Boolean = permissionList.none {
+            checkSelfPermission(it) !=
+                    PackageManager.PERMISSION_GRANTED
+        }
+        if (result) {
+            allPermissionsGrantedFlag = 1
+        }
+        return result
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun setupMultiplePermissions() {
+        val remainingPermissions = permissionList.filter {
+            checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED
+        }
+        if (!remainingPermissions.isEmpty()) {
+            requestPermissions(remainingPermissions.toTypedArray(), 101)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissionList: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissionList, grantResults)
+        if (requestCode == 101) {
+            if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
+                @TargetApi(Build.VERSION_CODES.M)
+                if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
+                    AlertDialog.Builder(this)
+                        .setMessage("Press Permissions to Decide Permission Again")
+                        .setPositiveButton("Permissions") { dialog, which -> setupMultiplePermissions() }
+                        .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
+                        .create()
+                        .show()
+                }
+            }
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                allPermissionsGrantedFlag = 1
+            }
+        }
+    }
 }
