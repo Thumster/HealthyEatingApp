@@ -10,19 +10,29 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.healthyeatingapp.Food.DBHelper_Food
+import com.example.healthyeatingapp.Food.DataRecord_Food
+import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
+import com.example.healthyeatingapp.Wallet.DataRecord_Transaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionListener,
     Fragment_QRCodeConfirmation.OnFragmentInteractionListener {
+//    ,Fragment_Wallet.OnFragmentInteractionListener
 
     var allPermissionsGrantedFlag: Int = 0
+    var cameraPermissionGrantedFlag: Int = 0
+    var locationPermissionGrantedFlag: Int = 0
     private val permissionList = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
 
     private lateinit var bottomNavigationView: BottomNavigationView
+
     private lateinit var dbHelper_food: DBHelper_Food
+    private lateinit var dbHelper_transaction: DBHelper_Transaction
 
     private lateinit var food: DataRecord_Food
 
@@ -55,6 +65,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         dbHelper_food = DBHelper_Food(this)
+        dbHelper_transaction = DBHelper_Transaction(this)
 
     }
 
@@ -82,7 +93,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_qrcode -> {
-                    if (allPermissionsGrantedFlag == 1) {
+                    if (cameraPermissionGrantedFlag == 1) {
                         val fragment = Fragment_QRcode()
                         supportFragmentManager.beginTransaction().replace(
                             R.id.main_fragmentLayout,
@@ -92,18 +103,22 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                             .commit()
                         return@OnNavigationItemSelectedListener true
                     } else {
-                        setupMultiplePermissions()
+                        setupCameraPermission()
                     }
                 }
                 R.id.navigation_map -> {
-                    val fragment = Fragment_Maps()
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.main_fragmentLayout,
-                        fragment,
-                        fragment.javaClass.getSimpleName()
-                    )
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
+                    if (locationPermissionGrantedFlag == 1) {
+                        val fragment = Fragment_Maps()
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.main_fragmentLayout,
+                            fragment,
+                            fragment.javaClass.getSimpleName()
+                        )
+                            .commit()
+                        return@OnNavigationItemSelectedListener true
+                    } else {
+                        setupLocationPermission()
+                    }
                 }
                 R.id.navigation_profile -> {
                     val fragment = Fragment_Profile()
@@ -144,6 +159,30 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         }
     }
 
+//    override fun onFragmentInteractionWallet(transaction: DataRecord_Transaction?) {
+//        if (transaction != null) {
+//            dbHelper_transaction.insertTransaction(transaction)
+//
+////            dbHelper_transaction.clearDatabase()
+//
+//            var transactions = dbHelper_transaction.readAllTransactions()
+//            var str: String = ""
+//            for (transaction in transactions)
+//                str += transaction.transactionDate + "\n"
+//
+//            Toast.makeText(this, "SUCCESS!\n" + str, Toast.LENGTH_LONG).show()
+////            bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
+//        }
+//    }
+
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+    //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS
+
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun allPermissionsEnabled(): Boolean {
         var result: Boolean = permissionList.none {
@@ -161,9 +200,23 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         val remainingPermissions = permissionList.filter {
             checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED
         }
-        if (!remainingPermissions.isEmpty()) {
-            requestPermissions(remainingPermissions.toTypedArray(), 101)
+        requestPermissions(remainingPermissions.toTypedArray(), 101)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun setupCameraPermission() {
+        val remainingPermissions = permissionList.filter {
+            it == Manifest.permission.CAMERA
         }
+        requestPermissions(remainingPermissions.toTypedArray(), 102)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun setupLocationPermission() {
+        val remainingPermissions = permissionList.filter {
+            it == Manifest.permission.ACCESS_FINE_LOCATION
+        }
+        requestPermissions(remainingPermissions.toTypedArray(), 103)
     }
 
     override fun onRequestPermissionsResult(
@@ -172,6 +225,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissionList, grantResults)
+        // FOR MULTIPLE PERMISSIONS
         if (requestCode == 101) {
             if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
                 @TargetApi(Build.VERSION_CODES.M)
@@ -187,6 +241,43 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 allPermissionsGrantedFlag = 1
             }
+        }
+
+        // FOR CAMERA PERMISSION
+        if (requestCode == 102) {
+            if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
+                @TargetApi(Build.VERSION_CODES.M)
+                if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
+                    AlertDialog.Builder(this)
+                        .setMessage("Press Permissions to Decide Permission Again")
+                        .setPositiveButton("Permissions") { dialog, which -> setupCameraPermission() }
+                        .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
+                        .create()
+                        .show()
+                }
+            }
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                cameraPermissionGrantedFlag = 1
+            }
+        }
+
+        // FOR LOCATION PERMISSION
+        if (requestCode == 103) {
+            if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
+                @TargetApi(Build.VERSION_CODES.M)
+                if (permissionList.any { shouldShowRequestPermissionRationale(it) }) {
+                    AlertDialog.Builder(this)
+                        .setMessage("Press Permissions to Decide Permission Again")
+                        .setPositiveButton("Permissions") { dialog, which -> setupLocationPermission() }
+                        .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
+                        .create()
+                        .show()
+                }
+            }
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                locationPermissionGrantedFlag = 1
+            }
+
         }
     }
 }

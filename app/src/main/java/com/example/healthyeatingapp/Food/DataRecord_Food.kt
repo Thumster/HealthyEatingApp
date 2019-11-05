@@ -1,4 +1,4 @@
-package com.example.healthyeatingapp
+package com.example.healthyeatingapp.Food
 
 import java.io.Serializable
 

@@ -1,4 +1,4 @@
-package com.example.healthyeatingapp
+package com.example.healthyeatingapp.Food
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,10 +8,13 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 class DBHelper_Food(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    SQLiteOpenHelper(context,
+        DATABASE_NAME, null,
+        DATABASE_VERSION
+    ) {
     companion object {
         val DATABASE_VERSION = 1
-        val DATABASE_NAME = "battery.db"
+        val DATABASE_NAME = "food.db"
 
         private val SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TableInfo_Food.TABLE_NAME + "(" +

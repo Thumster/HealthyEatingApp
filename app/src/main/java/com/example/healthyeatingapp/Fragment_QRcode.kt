@@ -8,6 +8,8 @@ import android.os.Vibrator
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import com.example.healthyeatingapp.Food.DataRecord_Food
+import com.example.healthyeatingapp.QRCode.JSONParser
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
