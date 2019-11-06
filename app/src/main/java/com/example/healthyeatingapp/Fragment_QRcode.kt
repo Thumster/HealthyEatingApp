@@ -1,6 +1,7 @@
 package com.example.healthyeatingapp
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -100,6 +101,20 @@ class Fragment_QRcode : Fragment() {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (activity != null) {
+            getActivity()!!.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (activity != null) {
+            getActivity()!!.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
         }
     }
 

@@ -1,8 +1,6 @@
 package com.example.healthyeatingapp.Wallet
 
 import android.provider.BaseColumns
-import com.example.healthyeatingapp.enumeration.TransactionType
-import java.util.*
 
 class TableInfo_Transaction : BaseColumns {
 

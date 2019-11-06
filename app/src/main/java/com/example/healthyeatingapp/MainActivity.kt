@@ -8,10 +8,13 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.healthyeatingapp.Food.DBHelper_Food
 import com.example.healthyeatingapp.Food.DataRecord_Food
+import com.example.healthyeatingapp.Profile.DBHelper_Profile
 import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
 import com.example.healthyeatingapp.Wallet.DataRecord_Transaction
 import com.example.healthyeatingapp.enumeration.TransactionType
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
     Fragment_QRCodeConfirmation.OnFragmentInteractionListener,
     Fragment_Profile.OnFragmentInteractionListener {
 
+    private val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+
     var allPermissionsGrantedFlag: Int = 0
     var cameraPermissionGrantedFlag: Int = 0
     var locationPermissionGrantedFlag: Int = 0
@@ -37,6 +42,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
 
     private lateinit var dbHelper_food: DBHelper_Food
     private lateinit var dbHelper_transaction: DBHelper_Transaction
+    private lateinit var dbHelper_profile: DBHelper_Profile
 
     private lateinit var food: DataRecord_Food
 
@@ -70,6 +76,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
 
         dbHelper_food = DBHelper_Food(this)
         dbHelper_transaction = DBHelper_Transaction(this)
+        dbHelper_profile = DBHelper_Profile(this)
 
     }
 
@@ -162,7 +169,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
 //                var str: String = ""
 //                for (food in foods)
 //                    str += food.name + "\n"
-                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
                 val date_and_time = sdf.format(Date())
                 dbHelper_transaction.insertTransaction(
                     DataRecord_Transaction(
@@ -172,22 +179,25 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                         date_and_time
                     )
                 )
-                strResult = "SUCCESSFULLY purchased " + foodName + " for S$ " + String.format(
+                strResult = "Success! Purchased " + foodName + " for S$ " + String.format(
                     "%.2f",
                     foodPrice
                 )
                 bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
             } else {
-                strResult = "INSUFFICIENT BALANCE: Please Top Up your wallet!"
+                strResult = "INSUFFICIENT BALANCE:\nPlease Top Up your wallet!"
                 bottomNavigationView.setSelectedItemId(R.id.navigation_wallet)
             }
-            Toast.makeText(
+            val toast = Toast.makeText(
                 this,
                 strResult,
                 Toast.LENGTH_LONG
-            ).show()
-
-
+            )
+            val view = toast.view.findViewById<TextView>(android.R.id.message)
+            view?.let {
+                view.gravity = Gravity.CENTER
+            }
+            toast.show()
         }
     }
 
@@ -195,7 +205,17 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         if (boo) {
             dbHelper_transaction.clearDatabase()
             dbHelper_food.clearDatabase()
-            Toast.makeText(this, "SUCCESSFULLY DELETED DATABASE!", Toast.LENGTH_LONG).show()
+            dbHelper_profile.clearDatabase()
+            val toast = Toast.makeText(
+                this,
+                "SUCCESSFULLY Reset!",
+                Toast.LENGTH_LONG
+            )
+            val view = toast.view.findViewById<TextView>(android.R.id.message)
+            view?.let {
+                view.gravity = Gravity.CENTER
+            }
+            toast.show()
         }
     }
 

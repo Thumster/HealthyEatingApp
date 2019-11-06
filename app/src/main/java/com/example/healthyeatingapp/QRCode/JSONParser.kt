@@ -2,8 +2,12 @@ package com.example.healthyeatingapp.QRCode
 
 import android.content.Context
 import android.os.AsyncTask
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import com.example.healthyeatingapp.Food.DataRecord_Food
+import com.example.healthyeatingapp.R
+import com.google.android.material.snackbar.Snackbar
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -13,7 +17,7 @@ class JSONParser(
     private var c: Context,
     private var jsonData: String
 ) : AsyncTask<Void, Void, DataRecord_Food>() {
-    //    private lateinit var food: Food
+    private val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
     private lateinit var food: DataRecord_Food
 
 
@@ -27,22 +31,17 @@ class JSONParser(
 
     override fun onPostExecute(result: DataRecord_Food?) {
         super.onPostExecute(result)
-        if (result != null) {
-//            myTextView.text = "parse successful -- " +
-//                    "\nfoodName: " + food.getName() +
-//                    "\nfoodPrice: " + food.getPrice() +
-//                    "\nfoodCalories " + food.getCalories() +
-//                    "\nfoodFats " + food.getFats() +
-//                    "\nfoodProtein " + food.getProtein() +
-//                    "\nfoodCarbohydrate " + food.getCarbohydrate() +
-//                    "\nfoodSodium " + food.getSodium() +
-//                    "\nfoodSugar " + food.getSugar()
-        } else {
-            Toast.makeText(
+        if (result == null) {
+            val toast = Toast.makeText(
                 c,
-                "Unable to parse! This is the data we were trying to parse : " + jsonData,
+                "Invalid QRCode!\nPlease make sure it is a valid vendor." + jsonData,
                 Toast.LENGTH_LONG
-            ).show()
+            )
+            val view = toast.view.findViewById<TextView>(android.R.id.message)
+            view?.let {
+                view.gravity = Gravity.CENTER
+            }
+            toast.show()
         }
     }
 
@@ -59,7 +58,6 @@ class JSONParser(
             val sodium = jo.getInt("food_sodium")
             val sugar = jo.getInt("food_sugar")
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val date_and_time = sdf.format(Date())
 
             food = DataRecord_Food(

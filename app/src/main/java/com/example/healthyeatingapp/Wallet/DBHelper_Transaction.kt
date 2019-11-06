@@ -132,7 +132,7 @@ class DBHelper_Transaction(context: Context) :
     fun selector(t: DataRecord_Transaction): String = t.transactionDate
 
     fun dateTimeStrToLocalDateTime(input: String): LocalDateTime =
-        LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        LocalDateTime.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
 
 
 }

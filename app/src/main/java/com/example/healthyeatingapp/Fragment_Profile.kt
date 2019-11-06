@@ -11,17 +11,32 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.healthyeatingapp.Food.DataRecord_Food
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Fragment_Profile : Fragment() {
     private var listener: Fragment_Profile.OnFragmentInteractionListener? = null
 
     private lateinit var deleteButton: Button
+    private lateinit var editButton: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__profile, container, false)
+        editButton = view.findViewById<FloatingActionButton>(R.id.profile_floatingbutton_edit)
+        editButton.setOnClickListener {
+            MaterialAlertDialogBuilder(
+                activity,
+                R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+            )
+                .setMessage("Edit Profile")
+                .setPositiveButton("Confirm") { dialog, which ->
+
+                }
+                .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
+                .show()
+        }
         deleteButton = view.findViewById<Button>(R.id.profile_button_delete)
         deleteButton.setOnClickListener {
             MaterialAlertDialogBuilder(

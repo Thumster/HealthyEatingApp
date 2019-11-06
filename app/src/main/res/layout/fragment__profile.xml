@@ -6,16 +6,189 @@
     android:layout_height="match_parent"
     tools:context=".Fragment_Profile">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="PROFILE" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/profile_button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DELETE"
-        app:icon="@drawable/ic_delete_forever_black_24dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile_button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="10dp"
+            android:text="@string/profile_button_delete"
+            app:icon="@drawable/ic_delete_forever_black_24dp" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profile_textview_welcomeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/profile_textview_welcomeTitle"
+                    android:textSize="15sp"></TextView>
+
+                <TextView
+                    android:id="@+id/profile_textview_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="bryan thum"
+                    android:textAllCaps="true"
+                    android:textSize="30dp"
+                    android:textStyle="bold"></TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_textview_genderTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_gender"
+                        android:drawablePadding="3dp"
+                        android:gravity="center|right"
+                        android:paddingRight="5dp"
+                        android:text="@string/profile_textview_genderTitle"
+                        android:textSize="20dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/profile_textview_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="MALE"
+                        android:textSize="20dp"
+                        android:textStyle="italic|bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_textview_ageTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_birthday_cake"
+                        android:drawablePadding="3dp"
+                        android:gravity="center|right"
+                        android:paddingRight="5dp"
+                        android:text="@string/profile_textview_ageTitle"
+                        android:textSize="20dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/profile_textview_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="23"
+                        android:textSize="20dp"
+                        android:textStyle="italic|bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_textview_heightTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_height"
+                        android:drawablePadding="3dp"
+                        android:gravity="center|right"
+                        android:paddingRight="5dp"
+                        android:text="@string/profile_textview_heightTitle"
+                        android:textSize="20dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/profile_textview_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="1.73"
+                        android:textSize="20dp"
+                        android:textStyle="italic|bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_textview_weightTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_weight_scale"
+                        android:drawablePadding="3dp"
+                        android:gravity="center|right"
+                        android:paddingRight="5dp"
+                        android:text="@string/profile_textview_weightTitle"
+                        android:textSize="20dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/profile_textview_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="1.73"
+                        android:textSize="20dp"
+                        android:textStyle="italic|bold"></TextView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profile_floatingbutton_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:src="@drawable/ic_mode_edit_black_24dp" />
+    </RelativeLayout>
 </FrameLayout>

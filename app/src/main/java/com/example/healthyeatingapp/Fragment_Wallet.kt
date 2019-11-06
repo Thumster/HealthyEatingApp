@@ -4,6 +4,7 @@ package com.example.healthyeatingapp
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import kotlin.math.roundToInt
 
 
 class Fragment_Wallet : Fragment() {
+    private val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
     private lateinit var dbHelper_transaction: DBHelper_Transaction
     private lateinit var myDataset: ArrayList<DataRecord_Transaction>
@@ -99,14 +101,18 @@ class Fragment_Wallet : Fragment() {
     fun addTransaction(amountString: String) {
         var amount: Double? = amountString.toDoubleOrNull()
         if (amount == null || amount <= 0) {
-            Toast.makeText(
+            val toast = Toast.makeText(
                 activity,
                 "Transaction not completed...\nPlease enter a valid amount. Try Again!",
                 Toast.LENGTH_LONG
-            ).show()
+            )
+            val view = toast.view.findViewById<TextView>(android.R.id.message)
+            view?.let {
+                view.gravity = Gravity.CENTER
+            }
+            toast.show()
             return
         }
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val date_and_time = sdf.format(Date())
         val transactionName = "TOP UP"
         amount = String.format("%.2f", amount).toDouble()

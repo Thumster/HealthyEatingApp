@@ -26,6 +26,16 @@
     <string name="wallet_textview_transactionsTitle">Transactions</string>
     <string name="wallet_button_topup">TOP UP</string>
     <string name="wallet_textview_notransactions">No Past Transactions</string>
+    <string name="wallet_edittext_hint_amount">Enter your amount in S$</string>
+
+    //PROFILE
+    <string name="profile_button_delete">DELETE</string>
+    <string name="profile_textview_welcomeTitle">WELCOME BACK,</string>
+    <string name="profile_textview_genderTitle">Gender</string>
+    <string name="profile_textview_ageTitle">Age</string>
+    <string name="profile_textview_heightTitle">Height</string>
+    <string name="profile_textview_weightTitle">Weight</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
