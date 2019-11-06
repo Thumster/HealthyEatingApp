@@ -47,7 +47,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="bryan thum"
                     android:textAllCaps="true"
                     android:textSize="30dp"
                     android:textStyle="bold"></TextView>
@@ -78,7 +77,6 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
-                        android:text="MALE"
                         android:textSize="20dp"
                         android:textStyle="italic|bold"></TextView>
 
@@ -109,7 +107,6 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
-                        android:text="23"
                         android:textSize="20dp"
                         android:textStyle="italic|bold"></TextView>
 
@@ -140,7 +137,6 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
-                        android:text="1.73"
                         android:textSize="20dp"
                         android:textStyle="italic|bold"></TextView>
 
@@ -170,7 +166,6 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
-                        android:text="1.73"
                         android:textSize="20dp"
                         android:textStyle="italic|bold"></TextView>
 

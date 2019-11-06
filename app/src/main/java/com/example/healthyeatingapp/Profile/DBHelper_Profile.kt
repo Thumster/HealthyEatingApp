@@ -20,6 +20,8 @@ class DBHelper_Profile(context: Context) :
         val DATABASE_VERSION = 1
         val DATABASE_NAME = TableInfo_Profile.TABLE_NAME + ".db"
         var BMR: Int = 0
+        val emptyProfile = DataRecord_Profile("", 0, Gender.MALE, 0.00, 0.00)
+        var user: DataRecord_Profile = emptyProfile
 
         private val SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TableInfo_Profile.TABLE_NAME + "(" +
@@ -51,6 +53,7 @@ class DBHelper_Profile(context: Context) :
 
         val clearDBQuery: String = "DELETE FROM " + TableInfo_Profile.TABLE_NAME
         db.execSQL(clearDBQuery)
+        user = emptyProfile
     }
 
     fun createProfile(profile: DataRecord_Profile): Boolean {
@@ -66,14 +69,14 @@ class DBHelper_Profile(context: Context) :
 
         val newRowId = db.insert(TableInfo_Profile.TABLE_NAME, null, values)
         BMR = calculateBMR(profile)
+        user = profile
         return true
     }
 
     fun getProfile(): DataRecord_Profile {
         val db = writableDatabase
         var cursor: Cursor? = null
-        var profile: DataRecord_Profile =
-            DataRecord_Profile("", 0, Gender.MALE, 0.00, 0.00)
+        var profile = emptyProfile
 
         try {
             cursor = db.rawQuery("select * from " + TableInfo_Profile.TABLE_NAME, null)
@@ -100,8 +103,10 @@ class DBHelper_Profile(context: Context) :
                     weight,
                     height
                 )
+                cursor.moveToNext()
             }
         }
+        user = profile
         return profile
     }
 
