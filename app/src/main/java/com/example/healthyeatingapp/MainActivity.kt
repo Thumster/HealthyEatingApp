@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.mipmap.ic_launcher_round)
         supportActionBar?.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 this,
