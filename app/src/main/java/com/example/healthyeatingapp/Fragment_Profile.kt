@@ -3,6 +3,7 @@ package com.example.healthyeatingapp
 
 import android.content.Context
 import android.content.DialogInterface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -23,6 +24,8 @@ class Fragment_Profile : Fragment() {
     private lateinit var dbHelper_profile: DBHelper_Profile
     private lateinit var deleteButton: Button
     private lateinit var editButton: FloatingActionButton
+    private lateinit var mainDisplay: LinearLayout
+    private lateinit var nodataDisplay: LinearLayout
     private lateinit var nameText: TextView
     private lateinit var genderText: TextView
     private lateinit var ageText: TextView
@@ -72,6 +75,9 @@ class Fragment_Profile : Fragment() {
                 .create()
                 .show()
         }
+        mainDisplay = view.findViewById<LinearLayout>(R.id.profile_maindisplay)
+        nodataDisplay = view.findViewById<LinearLayout>(R.id.profile_nodatadisplay)
+
         nameText = view.findViewById<TextView>(R.id.profile_textview_name)
         genderText = view.findViewById<TextView>(R.id.profile_textview_gender)
         ageText = view.findViewById<TextView>(R.id.profile_textview_age)
@@ -103,12 +109,18 @@ class Fragment_Profile : Fragment() {
     fun loadProfile() {
         dbHelper_profile.getProfile()
         val profile = DBHelper_Profile.user
-        nameText.text = profile.name
-        ageText.text = profile.age.toString()
-        genderText.text = profile.gender.toString()
-        heightText.text = String.format("%.2f", profile.height) + "  CM"
-        weightText.text = String.format("%.2f", profile.weight) + "  KG"
-
+        if (!profile.name.equals("")) {
+            nodataDisplay.visibility = View.GONE
+            mainDisplay.visibility = View.VISIBLE
+            nameText.text = profile.name
+            ageText.text = profile.age.toString()
+            genderText.text = profile.gender.toString()
+            heightText.text = String.format("%.2f", profile.height) + "  CM"
+            weightText.text = String.format("%.2f", profile.weight) + "  KG"
+        } else {
+            nodataDisplay.visibility = View.VISIBLE
+            mainDisplay.visibility = View.GONE
+        }
     }
 
     fun checkForm(form: LinearLayout) {

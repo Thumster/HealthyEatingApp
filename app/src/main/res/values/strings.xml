@@ -31,6 +31,7 @@
 
     //PROFILE
     <string name="profile_button_delete">DELETE</string>
+    <string name="profile_textview_noshowTitle">NO PROFILE LOADED</string>
     <string name="profile_textview_welcomeTitle">WELCOME BACK,</string>
     <string name="profile_textview_genderTitle">Gender</string>
     <string name="profile_textview_ageTitle">Age</string>

@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -34,145 +33,171 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/profile_textview_welcomeTitle"
+                <LinearLayout
+                    android:id="@+id/profile_nodatadisplay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
                     android:gravity="center"
-                    android:text="@string/profile_textview_welcomeTitle"
-                    android:textSize="15sp"></TextView>
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/profile_textview_name"
+                    <TextView
+                        android:id="@+id/profile_textview_noshowTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/profile_textview_noshowTitle"
+                        android:textSize="15sp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_maindisplay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
                     android:gravity="center"
-                    android:paddingBottom="30dp"
-                    android:textAllCaps="true"
-                    android:textSize="30dp"
-                    android:textStyle="bold"></TextView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="25dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/profile_textview_genderTitle"
+                        android:id="@+id/profile_textview_welcomeTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/ic_gender"
-                        android:drawablePadding="3dp"
-                        android:gravity="center|right"
-                        android:paddingRight="5dp"
-                        android:text="@string/profile_textview_genderTitle"
-                        android:textSize="20dp"></TextView>
+                        android:gravity="center"
+                        android:text="@string/profile_textview_welcomeTitle"
+                        android:textSize="15sp"></TextView>
 
                     <TextView
-                        android:id="@+id/profile_textview_gender"
+                        android:id="@+id/profile_textview_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
-                        android:textSize="20dp"
-                        android:textStyle="italic|bold"></TextView>
+                        android:gravity="center"
+                        android:paddingBottom="30dp"
+                        android:textAllCaps="true"
+                        android:textSize="30dp"
+                        android:textStyle="bold"></TextView>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/profile_textview_genderTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@drawable/ic_gender"
+                            android:drawablePadding="3dp"
+                            android:gravity="center|right"
+                            android:paddingRight="5dp"
+                            android:text="@string/profile_textview_genderTitle"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/profile_textview_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="italic|bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/profile_textview_ageTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@drawable/ic_birthday_cake"
+                            android:drawablePadding="3dp"
+                            android:gravity="center|right"
+                            android:paddingRight="5dp"
+                            android:text="@string/profile_textview_ageTitle"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/profile_textview_age"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="italic|bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/profile_textview_heightTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@drawable/ic_height"
+                            android:drawablePadding="3dp"
+                            android:gravity="center|right"
+                            android:paddingRight="5dp"
+                            android:text="@string/profile_textview_heightTitle"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/profile_textview_height"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="italic|bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/profile_textview_weightTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@drawable/ic_weight_scale"
+                            android:drawablePadding="3dp"
+                            android:gravity="center|right"
+                            android:paddingRight="5dp"
+                            android:text="@string/profile_textview_weightTitle"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/profile_textview_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="italic|bold"></TextView>
+
+                    </LinearLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/profile_textview_ageTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/ic_birthday_cake"
-                        android:drawablePadding="3dp"
-                        android:gravity="center|right"
-                        android:paddingRight="5dp"
-                        android:text="@string/profile_textview_ageTitle"
-                        android:textSize="20dp"></TextView>
-
-                    <TextView
-                        android:id="@+id/profile_textview_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
-                        android:textSize="20dp"
-                        android:textStyle="italic|bold"></TextView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/profile_textview_heightTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/ic_height"
-                        android:drawablePadding="3dp"
-                        android:gravity="center|right"
-                        android:paddingRight="5dp"
-                        android:text="@string/profile_textview_heightTitle"
-                        android:textSize="20dp"></TextView>
-
-                    <TextView
-                        android:id="@+id/profile_textview_height"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
-                        android:textSize="20dp"
-                        android:textStyle="italic|bold"></TextView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/profile_textview_weightTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/ic_weight_scale"
-                        android:drawablePadding="3dp"
-                        android:gravity="center|right"
-                        android:paddingRight="5dp"
-                        android:text="@string/profile_textview_weightTitle"
-                        android:textSize="20dp"></TextView>
-
-                    <TextView
-                        android:id="@+id/profile_textview_weight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
-                        android:textSize="20dp"
-                        android:textStyle="italic|bold"></TextView>
-
-                </LinearLayout>
-
 
             </LinearLayout>
 
