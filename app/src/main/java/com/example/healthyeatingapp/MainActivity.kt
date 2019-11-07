@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        actionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.ab_gradient))
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (allPermissionsEnabled()) {
                 allPermissionsGrantedFlag = 1
@@ -78,6 +80,8 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         dbHelper_transaction = DBHelper_Transaction(this)
         dbHelper_profile = DBHelper_Profile(this)
 
+        dbHelper_profile.getProfile()
+        dbHelper_transaction.readAllTransactions()
     }
 
     private val mOnNavigationItemSelectedListener =

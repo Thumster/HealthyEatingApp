@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,13 +44,13 @@ class Fragment_Profile : Fragment() {
 
         editButton = view.findViewById<FloatingActionButton>(R.id.profile_floatingbutton_edit)
         editButton.setOnClickListener {
-
             val form = LayoutInflater.from(activity)
                 .inflate(
                     R.layout.profile_form_profileedit,
                     container,
                     false
                 ) as LinearLayout
+            loadForm(form)
             MaterialAlertDialogBuilder(
                 activity,
                 R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
@@ -115,11 +117,36 @@ class Fragment_Profile : Fragment() {
             nameText.text = profile.name
             ageText.text = profile.age.toString()
             genderText.text = profile.gender.toString()
-            heightText.text = String.format("%.2f", profile.height) + "  CM"
-            weightText.text = String.format("%.2f", profile.weight) + "  KG"
+            heightText.text = String.format("%.0f", profile.height) + "  CM"
+            weightText.text = String.format("%.1f", profile.weight) + "  KG"
         } else {
             nodataDisplay.visibility = View.VISIBLE
             mainDisplay.visibility = View.GONE
+        }
+    }
+
+    fun loadForm(form: LinearLayout) {
+        dbHelper_profile.getProfile()
+        val profile = DBHelper_Profile.user
+        if (!profile.name.equals("")) {
+            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_name).text =
+                SpannableStringBuilder(profile.name)
+            if (profile.gender == Gender.MALE) {
+                val genderRadioMale =
+                    form.findViewById<RadioButton>(R.id.profile_editprofile_gender_male)
+                genderRadioMale.isChecked = true;
+            } else {
+                val genderRadioFemale =
+                    form.findViewById<RadioButton>(R.id.profile_editprofile_gender_female)
+                genderRadioFemale.isChecked = true;
+            }
+
+            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_age).text =
+                SpannableStringBuilder(profile.age.toString())
+            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_height).text =
+                SpannableStringBuilder(String.format("%.0f", profile.height))
+            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_weight).text =
+                SpannableStringBuilder(String.format("%.1f", profile.weight))
         }
     }
 
@@ -134,10 +161,11 @@ class Fragment_Profile : Fragment() {
         val height =
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_height).text.toString()
                 .toDoubleOrNull()
-        val weight =
+        val heightValue = if (height != null) String.format("%.0f", height).toDouble() else null
+        var weight =
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_weight).text.toString()
                 .toDoubleOrNull()
-
+        val weightValue = if (weight != null) String.format("%.1f", weight).toDouble() else null
         var strResult = ""
         if (inputName.equals("") || age == null || age == 0 || height == null || height == 0.0 || weight == null || weight == 0.0) {
             strResult = "INVALID INPUT! Please fill in your"
@@ -159,8 +187,8 @@ class Fragment_Profile : Fragment() {
                     inputName,
                     age,
                     genderSelected,
-                    weight,
-                    height
+                    weightValue!!,
+                    heightValue!!
                 )
             )
             strResult = "SUCCESSFULLY updated profile!"

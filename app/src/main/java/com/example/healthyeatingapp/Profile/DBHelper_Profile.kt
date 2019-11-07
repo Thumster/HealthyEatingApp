@@ -107,6 +107,7 @@ class DBHelper_Profile(context: Context) :
             }
         }
         user = profile
+        BMR = calculateBMR(profile)
         return profile
     }
 

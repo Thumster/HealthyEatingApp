@@ -22,10 +22,10 @@ class Fragment_QRCodeConfirmation : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view : View = inflater.inflate(R.layout.fragment__qrcode_confirmation, container, false)
+        val view: View = inflater.inflate(R.layout.fragment__qrcode_confirmation, container, false)
         // Inflate the layout for this fragment
         val confirmButton = view.findViewById<Button>(R.id.qrcodeconfirmation_button_confirm)
-        confirmButton.setOnClickListener{view ->
+        confirmButton.setOnClickListener { view ->
             listener?.onFragmentInteractionQRCodeConfirmation(true)
         }
         val name = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_name)
@@ -33,7 +33,8 @@ class Fragment_QRCodeConfirmation : Fragment() {
         val calories = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_calories)
         val fats = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_fats)
         val protein = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_protein)
-        val carbohydrate = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_carbohydrate)
+        val carbohydrate =
+            view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_carbohydrate)
         val sodium = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_sodium)
         val sugar = view.findViewById<TextView>(R.id.qrcodeconfirmation_textview_sugar)
 
