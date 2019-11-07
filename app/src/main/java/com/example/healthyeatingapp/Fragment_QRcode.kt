@@ -2,6 +2,7 @@ package com.example.healthyeatingapp
 
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -22,6 +23,7 @@ import java.io.IOException
 class Fragment_QRcode : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     var jsonText = ""
+    private var requestedOrientation: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,6 +109,7 @@ class Fragment_QRcode : Fragment() {
     override fun onResume() {
         super.onResume()
         if (activity != null) {
+            requestedOrientation = activity!!.requestedOrientation
             getActivity()!!.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         }
     }
@@ -114,7 +117,7 @@ class Fragment_QRcode : Fragment() {
     override fun onPause() {
         super.onPause()
         if (activity != null) {
-            getActivity()!!.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
+            getActivity()!!.setRequestedOrientation(requestedOrientation)
         }
     }
 

@@ -66,6 +66,7 @@ class Fragment_Profile : Fragment() {
                 .setMessage("Are you sure? Your actions can't be reverted.")
                 .setPositiveButton("Confirm") { dialog, which ->
                     listener?.onFragmentInteractionProfileDeleteDatabase(true)
+                    loadProfile()
                 }
                 .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
                 .create()
@@ -101,14 +102,13 @@ class Fragment_Profile : Fragment() {
 
     fun loadProfile() {
         dbHelper_profile.getProfile()
-        if (DBHelper_Profile.user != DBHelper_Profile.emptyProfile) {
-            val profile = DBHelper_Profile.user
-            nameText.text = profile.name
-            ageText.text = profile.age.toString()
-            genderText.text = profile.gender.toString()
-            heightText.text = String.format("%.2f", profile.height) + "  CM"
-            weightText.text = String.format("%.2f", profile.weight) + "  KG"
-        }
+        val profile = DBHelper_Profile.user
+        nameText.text = profile.name
+        ageText.text = profile.age.toString()
+        genderText.text = profile.gender.toString()
+        heightText.text = String.format("%.2f", profile.height) + "  CM"
+        weightText.text = String.format("%.2f", profile.weight) + "  KG"
+
     }
 
     fun checkForm(form: LinearLayout) {
@@ -123,12 +123,24 @@ class Fragment_Profile : Fragment() {
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_height).text.toString()
                 .toDoubleOrNull()
         val weight =
-            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_height).text.toString()
+            form.findViewById<EditText>(R.id.profile_editprofile_inputfield_weight).text.toString()
                 .toDoubleOrNull()
 
         var strResult = ""
-        if (inputName.equals("") || age == null || height == null || weight == null) {
-            strResult = "Invalid input! Try again"
+        if (inputName.equals("") || age == null || age == 0 || height == null || height == 0.0 || weight == null || weight == 0.0) {
+            strResult = "INVALID INPUT! Please fill in your"
+            if (inputName.equals("")) {
+                strResult += "\n-Name"
+            }
+            if (age == null || age == 0) {
+                strResult += "\n-Age"
+            }
+            if (height == null || height == 0.0) {
+                strResult += "\n-Height"
+            }
+            if (weight == null || weight == 0.0) {
+                strResult += "\n-Weight"
+            }
         } else {
             dbHelper_profile.createProfile(
                 DataRecord_Profile(
