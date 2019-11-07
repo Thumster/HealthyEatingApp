@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.example.healthyeatingapp.Food.DBHelper_Food
 import com.example.healthyeatingapp.Food.DataRecord_Food
 import com.example.healthyeatingapp.Profile.DBHelper_Profile
@@ -50,7 +51,12 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        actionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.ab_gradient))
+        supportActionBar?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.ab_gradient
+            )
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (allPermissionsEnabled()) {
