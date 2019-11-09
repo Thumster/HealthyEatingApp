@@ -8,6 +8,19 @@
     <string name="navigation_maps">MAPS</string>
     <string name="navigation_profile">PROFILE</string>
 
+    //DASHBOARD PAGE
+    <string name="goalnoshow_headerValue">Please create a profile first</string>
+    <string name="goal_headerName">Today\'s Goal</string>
+    <string name="goal_caloriesHeader">Calories</string>
+    <string name="goal_carbsHeader">Carbs</string>
+    <string name="goal_proteinHeader">Protein</string>
+    <string name="goal_fatsHeader">Fats</string>
+    <string name="goal_sugarHeader">Sugar</string>
+    <string name="goal_sodiumHeader">Sodium</string>
+    <string name="points_headerName">Current Points</string>
+    <string name="food_headerName">Past Meals</string>
+
+
     //QR Code
     <string name="qrcode_title">Scan QR Code</string>
     <string name="qrcode_subtitle">Hold your camera to scan a QR Code for a food item. Please make sure it is by a valid vendor!</string>
@@ -52,6 +65,5 @@
     <string name="profile_hint_weight">Weight</string>
     <string name="profile_helper_weight">Enter your weight in KG</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

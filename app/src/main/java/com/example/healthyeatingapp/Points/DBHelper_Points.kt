@@ -1,4 +1,4 @@
-package com.example.healthyeatingapp.Dashboard
+package com.example.healthyeatingapp.Points
 
 import android.content.ContentValues
 import android.content.Context
@@ -31,11 +31,11 @@ class DBHelper_Points(context: Context) :
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(DBHelper_Points.SQL_CREATE_ENTRIES)
+        db?.execSQL(SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL(DBHelper_Points.SQL_DELETE_ENTRIES)
+        db?.execSQL(SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -70,14 +70,14 @@ class DBHelper_Points(context: Context) :
         try {
             cursor = db.rawQuery("select * from " + TableInfo_Points.TABLE_NAME, null)
         } catch (e: SQLiteException) {
-            db.execSQL(DBHelper_Points.SQL_CREATE_ENTRIES)
+            db.execSQL(SQL_CREATE_ENTRIES)
             return ArrayList()
         }
 
         var name: String
         var amount: Int
         var date_and_time: String
-        DBHelper_Points.totalPoints = 0
+        totalPoints = 0
         if (cursor.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 name = cursor.getString(cursor.getColumnIndex(TableInfo_Points.COLUMN_POINTSNAME))
@@ -92,7 +92,7 @@ class DBHelper_Points(context: Context) :
                     )
                 )
 
-                DBHelper_Points.totalPoints += amount
+                totalPoints += amount
                 cursor.moveToNext()
             }
         }

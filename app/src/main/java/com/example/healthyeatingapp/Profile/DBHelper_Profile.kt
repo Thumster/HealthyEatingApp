@@ -126,6 +126,6 @@ class DBHelper_Profile(context: Context) :
             BMR = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
         }
 
-        return BMR.toInt()
+        return (BMR * 1.55).toInt()
     }
 }

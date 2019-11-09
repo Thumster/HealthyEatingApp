@@ -1,4 +1,4 @@
-package com.example.healthyeatingapp.Dashboard
+package com.example.healthyeatingapp.Points
 
 class DataRecord_Points(
     val name: String,

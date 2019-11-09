@@ -27,7 +27,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionListener,
     Fragment_QRCodeConfirmation.OnFragmentInteractionListener,
-    Fragment_Profile.OnFragmentInteractionListener {
+    Fragment_Profile.OnFragmentInteractionListener,
+    Fragment_Dashboard.OnFragmentInteractionListener {
 
     private val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
@@ -196,6 +197,11 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                     foodPrice
                 )
                 bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard)
+                val fragment = Fragment_Dashboard.newInstance(food)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragmentLayout, fragment, fragment.javaClass.getSimpleName())
+                    .commit()
+
             } else {
                 strResult = "INSUFFICIENT BALANCE:\nPlease Top Up your wallet!"
                 bottomNavigationView.setSelectedItemId(R.id.navigation_wallet)
@@ -229,6 +235,10 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             }
             toast.show()
         }
+    }
+
+    override fun onFragmentInteractionNavigateToProfile() {
+        bottomNavigationView.setSelectedItemId(R.id.navigation_profile)
     }
 
     //PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS   PERMISSIONS

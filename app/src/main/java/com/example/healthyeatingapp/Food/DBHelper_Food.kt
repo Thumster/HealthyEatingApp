@@ -6,6 +6,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DBHelper_Food(context: Context) :
     SQLiteOpenHelper(
@@ -120,6 +122,11 @@ class DBHelper_Food(context: Context) :
                 cursor.moveToNext()
             }
         }
-        return foods
+        return ArrayList(foods.sortedByDescending { dateTimeStrToLocalDateTime(selector(it)) })
     }
+
+    fun selector(f: DataRecord_Food): String = f.date_and_time
+
+    fun dateTimeStrToLocalDateTime(input: String): LocalDateTime =
+        LocalDateTime.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
 }
