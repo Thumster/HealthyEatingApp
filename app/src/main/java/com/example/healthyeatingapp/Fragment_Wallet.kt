@@ -32,9 +32,9 @@ class Fragment_Wallet : Fragment() {
     private lateinit var dbHelper_transaction: DBHelper_Transaction
     private lateinit var myDataset: ArrayList<DataRecord_Transaction>
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var emptyView: TextView
     private lateinit var balanceView: TextView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 

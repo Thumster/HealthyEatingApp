@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.healthyeatingapp.Food.DBHelper_Food
 import com.example.healthyeatingapp.Food.DataRecord_Food
+import com.example.healthyeatingapp.Points.DBHelper_Points
 import com.example.healthyeatingapp.Profile.DBHelper_Profile
 import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
 import com.example.healthyeatingapp.Wallet.DataRecord_Transaction
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
     private lateinit var dbHelper_food: DBHelper_Food
     private lateinit var dbHelper_transaction: DBHelper_Transaction
     private lateinit var dbHelper_profile: DBHelper_Profile
+    private lateinit var dbHelper_points: DBHelper_Points
 
     private lateinit var food: DataRecord_Food
 
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         dbHelper_food = DBHelper_Food(this)
         dbHelper_transaction = DBHelper_Transaction(this)
         dbHelper_profile = DBHelper_Profile(this)
+        dbHelper_points = DBHelper_Points(this)
 
         dbHelper_profile.getProfile()
         dbHelper_transaction.readAllTransactions()
@@ -224,6 +227,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
             dbHelper_transaction.clearDatabase()
             dbHelper_food.clearDatabase()
             dbHelper_profile.clearDatabase()
+            dbHelper_points.clearDatabase()
             val toast = Toast.makeText(
                 this,
                 "SUCCESSFULLY Reset!",
@@ -257,6 +261,8 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
         }
         if (result) {
             allPermissionsGrantedFlag = 1
+            cameraPermissionGrantedFlag = 1
+            locationPermissionGrantedFlag = 1
         }
         return result
     }
