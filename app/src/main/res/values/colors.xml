@@ -4,4 +4,17 @@
     <color name="colorPrimaryDark">#e12867</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorGreen">#2dff53</color>
+    <color name="progressBackground">#d0d0d0</color>
+    <color name="progressFillGreen">#2ad56f</color>
+    <color name="progressFillGreenSecondary">#22aa59</color>
+    <color name="progressFillBlue">#008ccc</color>
+    <color name="progressFillBlueSecondary">#0074a8</color>
+    <color name="progressFillPurple">#9d68b7</color>
+    <color name="progressFillPurpleSecondary">#8c5da6</color>
+    <color name="progressFillPink">#ef5675</color>
+    <color name="progressFillPinkSecondary">#d54d68</color>
+    <color name="progressFillOrange">#ff764a</color>
+    <color name="progressFillOrangeSecondary">#e86740</color>
+    <color name="progressFillYellow">#ffa600</color>
+    <color name="progressFillYellowSecondary">#de9000</color>
 </resources>

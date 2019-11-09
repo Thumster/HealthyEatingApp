@@ -1,14 +1,646 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment_Dashboard">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="DASHBOARD" />
+        android:fillViewport="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E4E3E3"
+            tools:context=".MainActivity">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/goalCardView"
+                style="@style/CardView.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:outlineSpotShadowColor="@color/colorGreen"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/goalIconCardView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginVertical="18dp"
+                        android:layout_marginStart="16dp"
+                        android:elevation="12dp"
+                        app:cardCornerRadius="25dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/caloriesProgressBar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                            android:id="@+id/goalIconImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_target" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/goalCaloriesIconImage"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_burn"
+                        app:layout_constraintBottom_toTopOf="@+id/caloriesProgressBar"
+                        app:layout_constraintStart_toEndOf="@+id/goalIconCardView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/goalCaloriesHeaderName"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Calories"
+                        android:textSize="17dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/goalCaloriesIconImage"
+                        app:layout_constraintStart_toEndOf="@+id/goalCaloriesIconImage"
+                        app:layout_constraintTop_toTopOf="@+id/goalCaloriesIconImage" />
+
+                    <TextView
+                        android:id="@+id/goalCaloriesHeaderValue"
+                        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="500/800"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/goalCaloriesHeaderName"
+                        app:layout_constraintStart_toEndOf="@+id/goalCaloriesHeaderName"
+                        app:layout_constraintTop_toTopOf="@+id/goalCaloriesHeaderName" />
+
+                    <Button
+                        android:id="@+id/goalArrowBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/goalIconCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/goalIconCardView"
+                        app:layout_constraintVertical_bias="0.394" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/goalExpandableView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:animateLayoutChanges="true"
+                        android:paddingBottom="12dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goalIconCardView">
+
+                        <ImageView
+                            android:id="@+id/goalCarbohydratesIconImage"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/ic_carbohydrates"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/goalCarbohydratesHeaderName"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="Carbs"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalCarbohydratesIconImage"
+                            app:layout_constraintStart_toEndOf="@+id/goalCarbohydratesIconImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalCarbohydratesIconImage" />
+
+                        <TextView
+                            android:id="@+id/goalCarbohydratesHeaderValue"
+                            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:text="52"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toStartOf="@+id/carbohydratesProgressBar"
+                            app:layout_constraintStart_toStartOf="@+id/goalCarbohydratesIconImage"
+                            app:layout_constraintTop_toBottomOf="@+id/goalCarbohydratesHeaderName" />
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:id="@+id/carbohydratesProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="66dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalCarbohydratesHeaderValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalCarbohydratesHeaderName"
+                            app:layout_constraintTop_toTopOf="@+id/goalCarbohydratesHeaderName"
+                            app:rcBackgroundColor="@color/progressBackground"
+                            app:rcBackgroundPadding="0dp"
+                            app:rcProgressColor="@color/progressFillBlue"
+                            app:rcRadius="5dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgressColor="@color/progressFillBlueSecondary" />
+
+                        <ImageView
+                            android:id="@+id/goalProteinIconImage"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/ic_protein"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/goalCarbohydratesHeaderValue" />
+
+                        <TextView
+                            android:id="@+id/goalProteinHeaderName"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="Protein"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalProteinIconImage"
+                            app:layout_constraintStart_toEndOf="@+id/goalProteinIconImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalProteinIconImage" />
+
+                        <TextView
+                            android:id="@+id/goalProteinHeaderValue"
+                            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:text="500/1800"
+                            android:textSize="15dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toStartOf="@+id/proteinProgressBar"
+                            app:layout_constraintStart_toStartOf="@+id/goalProteinIconImage"
+                            app:layout_constraintTop_toBottomOf="@+id/goalProteinHeaderName" />
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:id="@+id/proteinProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="66dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalProteinHeaderValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalProteinHeaderName"
+                            app:layout_constraintTop_toTopOf="@+id/goalProteinHeaderName"
+                            app:rcBackgroundColor="@color/progressBackground"
+                            app:rcBackgroundPadding="0dp"
+                            app:rcProgressColor="@color/progressFillPurple"
+                            app:rcRadius="5dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgressColor="@color/progressFillPurpleSecondary" />
+
+                        <ImageView
+                            android:id="@+id/goalFatsIconImage"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/ic_fats"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/goalProteinHeaderValue" />
+
+                        <TextView
+                            android:id="@+id/goalFatsHeaderName"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="Fats"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalFatsIconImage"
+                            app:layout_constraintStart_toEndOf="@+id/goalFatsIconImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalFatsIconImage" />
+
+                        <TextView
+                            android:id="@+id/goalFatsHeaderValue"
+                            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:text="500/1800"
+                            android:textSize="15dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toStartOf="@+id/fatsProgressBar"
+                            app:layout_constraintStart_toStartOf="@+id/goalFatsIconImage"
+                            app:layout_constraintTop_toBottomOf="@+id/goalFatsHeaderName" />
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:id="@+id/fatsProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="66dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalFatsHeaderValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalFatsHeaderName"
+                            app:layout_constraintTop_toTopOf="@+id/goalFatsHeaderName"
+                            app:rcBackgroundColor="@color/progressBackground"
+                            app:rcBackgroundPadding="0dp"
+                            app:rcProgressColor="@color/progressFillPink"
+                            app:rcRadius="5dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgressColor="@color/progressFillPinkSecondary" />
+
+                        <ImageView
+                            android:id="@+id/goalSugarIconImage"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/ic_sugar"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/goalFatsHeaderValue" />
+
+                        <TextView
+                            android:id="@+id/goalSugarHeaderName"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="Sugar"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalSugarIconImage"
+                            app:layout_constraintStart_toEndOf="@+id/goalSugarIconImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalSugarIconImage" />
+
+                        <TextView
+                            android:id="@+id/goalSugarHeaderValue"
+                            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:text="500/1800"
+                            android:textSize="15dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toStartOf="@+id/sugarProgressBar"
+                            app:layout_constraintStart_toStartOf="@+id/goalSugarIconImage"
+                            app:layout_constraintTop_toBottomOf="@+id/goalSugarHeaderName" />
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:id="@+id/sugarProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="66dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalSugarHeaderValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalSugarHeaderName"
+                            app:layout_constraintTop_toTopOf="@+id/goalSugarHeaderName"
+                            app:rcBackgroundColor="@color/progressBackground"
+                            app:rcBackgroundPadding="0dp"
+                            app:rcProgressColor="@color/progressFillOrange"
+                            app:rcRadius="5dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgressColor="@color/progressFillOrangeSecondary" />
+
+                        <ImageView
+                            android:id="@+id/goalSodiumIconImage"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/ic_sodium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/goalSugarHeaderValue" />
+
+                        <TextView
+                            android:id="@+id/goalSodiumHeaderName"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="Sodium"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalSodiumIconImage"
+                            app:layout_constraintStart_toEndOf="@+id/goalSodiumIconImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalSodiumIconImage" />
+
+                        <TextView
+                            android:id="@+id/goalSodiumHeaderValue"
+                            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center"
+                            android:text="500/1800"
+                            android:textSize="15dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toStartOf="@+id/sodiumProgressBar"
+                            app:layout_constraintStart_toStartOf="@+id/goalSodiumIconImage"
+                            app:layout_constraintTop_toBottomOf="@+id/goalSodiumHeaderName" />
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:id="@+id/sodiumProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="66dp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalSodiumHeaderValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalSodiumHeaderName"
+                            app:layout_constraintTop_toTopOf="@+id/goalSodiumHeaderName"
+                            app:rcBackgroundColor="@color/progressBackground"
+                            app:rcBackgroundPadding="0dp"
+                            app:rcProgressColor="@color/progressFillYellow"
+                            app:rcRadius="5dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgressColor="@color/progressFillYellowSecondary" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/goalHeaderName"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Today's Goal"
+                        app:layout_constraintBottom_toTopOf="@+id/goalCaloriesIconImage"
+                        app:layout_constraintStart_toEndOf="@+id/goalIconCardView"
+                        app:layout_constraintTop_toTopOf="@+id/goalIconCardView"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:id="@+id/caloriesProgressBar"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginHorizontal="20dp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/goalIconCardView"
+                        app:layout_constraintEnd_toStartOf="@+id/goalArrowBtn"
+                        app:layout_constraintHorizontal_bias="0.6"
+                        app:layout_constraintStart_toEndOf="@+id/goalIconCardView"
+                        app:layout_constraintTop_toBottomOf="@+id/goalCaloriesHeaderName"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:rcBackgroundColor="@color/progressBackground"
+                        app:rcBackgroundPadding="0dp"
+                        app:rcProgressColor="@color/progressFillGreen"
+                        app:rcRadius="5dp"
+                        app:rcReverse="false"
+                        app:rcSecondaryProgressColor="@color/progressFillGreenSecondary" />
+                    <!--                    app:rcIconBackgroundColor="@color/progressBackgroundGreen"-->
+                    <!--                    app:rcIconPadding="4dp"-->
+                    <!--                    app:rcIconSize="40dp"-->
+                    <!--                    app:rcIconSrc="@drawable/ic_burn"-->
+                    <!--                    app:rcIconWidth="40dp"-->
+                    <!--                    app:rcIconHeight="40dp"-->
+                    <!--                    app:rcIconPaddingBottom="4dp"-->
+                    <!--                    app:rcIconPaddingLeft="4dp"-->
+                    <!--                    app:rcIconPaddingRight="4dp"-->
+                    <!--                    app:rcIconPaddingTop="4dp"-->
+                    <!--                    app:rcIconPadding="dimension"-->
+                    <!--                    app:rcIconSize="dimension"-->
+                    <!--                    app:rcMax="float"-->
+                    <!--                    app:rcProgress="float"-->
+                    <!--                    app:rcSecondaryProgress="float"-->
+                    <!--                    app:rcSecondaryProgressColor="color" -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pointsCardView"
+                style="@style/CardView.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:outlineSpotShadowColor="@color/colorGreen"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goalCardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pointsIconCardView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="12dp"
+                        android:layout_marginStart="16dp"
+                        android:elevation="12dp"
+                        app:cardCornerRadius="25dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/pointsHeaderName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                            android:id="@+id/pointsIconImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_piggy_bank" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/pointsHeaderName"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:text="Current Points"
+                        app:layout_constraintBottom_toBottomOf="@id/pointsIconCardView"
+                        app:layout_constraintStart_toEndOf="@+id/pointsIconCardView"
+                        app:layout_constraintTop_toTopOf="@+id/pointsIconCardView" />
+
+                    <TextView
+                        android:id="@+id/pointsHeaderValue"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginHorizontal="7dp"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center"
+                        android:text="123"
+                        android:textStyle="bold"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/pointsHeaderName"
+                        app:layout_constraintEnd_toStartOf="@+id/pointsArrowBtn"
+                        app:layout_constraintHorizontal_bias="0.277"
+                        app:layout_constraintStart_toEndOf="@+id/pointsHeaderName"
+                        app:layout_constraintTop_toTopOf="@+id/pointsHeaderName" />
+
+                    <Button
+                        android:id="@+id/pointsArrowBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/pointsHeaderValue"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pointsHeaderValue"
+                        app:layout_constraintVertical_bias="0.394" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/pointsExpandableView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:animateLayoutChanges="true"
+                        android:paddingBottom="12dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/pointsIconCardView">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/pointsRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="4"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:visibility="visible"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/foodCardView"
+                style="@style/CardView.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:outlineSpotShadowColor="@color/colorGreen"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pointsCardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/foodIconCardView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="12dp"
+                        android:layout_marginStart="16dp"
+                        android:elevation="12dp"
+                        app:cardCornerRadius="25dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/foodHeaderName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                            android:id="@+id/foodIconImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_food" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/foodHeaderName"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Past Meals"
+                        app:layout_constraintBottom_toBottomOf="@id/foodIconCardView"
+                        app:layout_constraintStart_toEndOf="@+id/foodIconCardView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/foodArrowBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/foodIconCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/foodIconCardView"
+                        app:layout_constraintVertical_bias="0.394" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/foodExpandableView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:animateLayoutChanges="true"
+                        android:paddingBottom="12dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/foodIconCardView">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/foodRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="4"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:visibility="visible"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>

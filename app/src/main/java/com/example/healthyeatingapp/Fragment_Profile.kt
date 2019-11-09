@@ -13,6 +13,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.transition.TransitionManager
 import com.example.healthyeatingapp.Food.DataRecord_Food
 import com.example.healthyeatingapp.Profile.DBHelper_Profile
 import com.example.healthyeatingapp.Profile.DataRecord_Profile
@@ -20,6 +23,7 @@ import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
 import com.example.healthyeatingapp.enumeration.Gender
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment__dashboard.*
 
 class Fragment_Profile : Fragment() {
     private var listener: Fragment_Profile.OnFragmentInteractionListener? = null
