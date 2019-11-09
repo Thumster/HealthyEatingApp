@@ -3,6 +3,7 @@ package com.example.healthyeatingapp
 import android.Manifest
 import android.annotation.TargetApi
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -135,13 +136,18 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                 }
                 R.id.navigation_map -> {
                     if (locationPermissionGrantedFlag == 1) {
-                        val fragment = Fragment_Maps()
-                        supportFragmentManager.beginTransaction().replace(
-                            R.id.main_fragmentLayout,
-                            fragment,
-                            fragment.javaClass.getSimpleName()
-                        )
-                            .commit()
+//                        val fragment = Fragment_Maps()
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.main_fragmentLayout,
+//                            fragment,
+//                            fragment.javaClass.getSimpleName()
+//                        )
+//                            .commit()
+
+                        val myIntent = Intent(this, MapsActivity::class.java)
+                        startActivity(myIntent)
+
+
                         return@OnNavigationItemSelectedListener true
                     } else {
                         setupLocationPermission()
