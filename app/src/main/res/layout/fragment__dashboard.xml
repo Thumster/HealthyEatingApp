@@ -211,7 +211,7 @@
                         android:layout_marginTop="10dp"
                         android:animateLayoutChanges="true"
                         android:paddingBottom="12dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/caloriesProgressBar">
@@ -639,7 +639,6 @@
                                     android:layout_height="wrap_content"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
-                                    android:visibility="visible"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -663,7 +662,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pointsCardView">
+                app:layout_constraintTop_toBottomOf="@id/pointsCardView"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -677,7 +677,7 @@
                         android:layout_marginStart="16dp"
                         android:elevation="12dp"
                         app:cardCornerRadius="25dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/foodHeaderName"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0">
@@ -698,11 +698,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
-                        android:layout_marginTop="12dp"
                         android:text="@string/food_headerName"
                         app:layout_constraintBottom_toBottomOf="@id/foodIconCardView"
                         app:layout_constraintStart_toEndOf="@+id/foodIconCardView"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/foodIconCardView" />
 
                     <Button
                         android:id="@+id/foodArrowBtn"
@@ -722,7 +721,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:animateLayoutChanges="true"
-                        android:paddingBottom="12dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -735,7 +733,7 @@
                             android:layout_weight="4"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
