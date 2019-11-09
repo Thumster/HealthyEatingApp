@@ -65,5 +65,12 @@
     <string name="profile_hint_weight">Weight</string>
     <string name="profile_helper_weight">Enter your weight in KG</string>
 
+    //MAP STRINGS
+    <string name="title_activity_maps">Mappo</string>
+    <string name="map_location_title">Location: </string>
+    <string name="map_capacity_title">Capacity: </string>
+    <string name="map_stall_title">Stalls: </string>
+    <string name="map_openinghour_title">Opening hours: </string>
+
 
 </resources>
