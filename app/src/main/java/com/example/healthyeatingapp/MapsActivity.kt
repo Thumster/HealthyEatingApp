@@ -274,7 +274,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 }
 
-
 class place(
     var l_name: String,
     var l_location: String,
