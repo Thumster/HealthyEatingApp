@@ -401,7 +401,7 @@ class Fragment_Dashboard : Fragment() {
             pointsViewAdapter.notifyDataSetChanged()
             val toast = Toast.makeText(
                 activity,
-                (-newPoint.amount).toString() + " points successfully added",
+                (-newPoint.amount).toString() + " points successfully claimed",
                 Toast.LENGTH_SHORT
             )
             val view = toast.view.findViewById<TextView>(android.R.id.message)

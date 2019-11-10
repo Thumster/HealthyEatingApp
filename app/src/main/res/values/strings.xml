@@ -18,7 +18,8 @@
     <string name="goal_sugarHeader">Sugar</string>
     <string name="goal_sodiumHeader">Sodium</string>
     <string name="pointsnoshow_headerValue">No previous points record</string>
-    <string name="points_headerName">Current Points</string>
+    <string name="points_headerName">Points</string>
+    <string name="points_pointsClaimButton">CLAIM</string>
     <string name="food_headerName">Past Meals</string>
 
 
