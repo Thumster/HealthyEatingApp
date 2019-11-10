@@ -10,5 +10,6 @@ class TableInfo_Profile : BaseColumns {
         val COLUMN_GENDER = "profile_gender"
         val COLUMN_WEIGHT = "profile_weight"
         val COLUMN_HEIGHT = "profile_height"
+        val COLUMN_EXERCISE = "profile_exercise"
     }
 }

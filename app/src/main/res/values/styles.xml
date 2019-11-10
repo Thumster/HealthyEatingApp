@@ -8,4 +8,10 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
+    <style name="CardViewCheckedStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="checkedIconEnabled">false</item>
+        <item name="checkedIcon">@null</item>
+        <item name="checkedIconTint">@color/colorAccent</item>
+    </style>
+
 </resources>

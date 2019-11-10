@@ -21,6 +21,7 @@ import com.example.healthyeatingapp.Profile.DBHelper_Profile
 import com.example.healthyeatingapp.Profile.DataRecord_Profile
 import com.example.healthyeatingapp.Wallet.DBHelper_Transaction
 import com.example.healthyeatingapp.enumeration.Gender
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment__dashboard.*
@@ -37,6 +38,7 @@ class Fragment_Profile : Fragment() {
     private lateinit var ageText: TextView
     private lateinit var heightText: TextView
     private lateinit var weightText: TextView
+    private lateinit var exerciseText: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +91,8 @@ class Fragment_Profile : Fragment() {
         ageText = view.findViewById<TextView>(R.id.profile_textview_age)
         heightText = view.findViewById<TextView>(R.id.profile_textview_height)
         weightText = view.findViewById<TextView>(R.id.profile_textview_weight)
+        exerciseText = view.findViewById<TextView>(R.id.profile_textview_exercise)
+
 
         loadProfile()
         return view
@@ -123,6 +127,14 @@ class Fragment_Profile : Fragment() {
             genderText.text = profile.gender.toString()
             heightText.text = String.format("%.0f", profile.height) + "  CM"
             weightText.text = String.format("%.1f", profile.weight) + "  KG"
+            if (profile.exercise == 1) {
+                exerciseText.text = "LITTLE"
+            } else if (profile.exercise == 2) {
+                exerciseText.text = "MODERATE"
+            } else if (profile.exercise == 3) {
+                exerciseText.text = "HEAVY"
+            }
+
         } else {
             nodataDisplay.visibility = View.VISIBLE
             mainDisplay.visibility = View.GONE
@@ -132,6 +144,11 @@ class Fragment_Profile : Fragment() {
     fun loadForm(form: LinearLayout) {
         dbHelper_profile.getProfile()
         val profile = DBHelper_Profile.user
+        val littleExercise = form.findViewById<MaterialCardView>(R.id.cardview_littleExcerise)
+        val moderateExercise = form.findViewById<MaterialCardView>(R.id.cardview_moderateExcerise)
+        val heavyExercise = form.findViewById<MaterialCardView>(R.id.cardview_heavyExcerise)
+
+
         if (!profile.name.equals("")) {
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_name).text =
                 SpannableStringBuilder(profile.name)
@@ -151,10 +168,42 @@ class Fragment_Profile : Fragment() {
                 SpannableStringBuilder(String.format("%.0f", profile.height))
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_weight).text =
                 SpannableStringBuilder(String.format("%.1f", profile.weight))
+            if (profile.exercise == 1) {
+                littleExercise.isChecked = true
+            } else if (profile.exercise == 2) {
+                moderateExercise.isChecked = true
+            } else if (profile.exercise == 3) {
+                heavyExercise.isChecked = true
+            }
+        } else {
+            littleExercise.isChecked = false
+            moderateExercise.isChecked = true
+            heavyExercise.isChecked = false
         }
+
+        littleExercise.setOnClickListener {
+            littleExercise.isChecked = !littleExercise.isChecked
+            moderateExercise.isChecked = false
+            heavyExercise.isChecked = false
+        }
+        moderateExercise.setOnClickListener {
+            littleExercise.isChecked = false
+            moderateExercise.isChecked = !moderateExercise.isChecked
+            heavyExercise.isChecked = false
+        }
+        heavyExercise.setOnClickListener {
+            littleExercise.isChecked = false
+            moderateExercise.isChecked = false
+            heavyExercise.isChecked = !heavyExercise.isChecked
+        }
+
     }
 
     fun checkForm(form: LinearLayout) {
+        val littleExercise = form.findViewById<MaterialCardView>(R.id.cardview_littleExcerise)
+        val moderateExercise = form.findViewById<MaterialCardView>(R.id.cardview_moderateExcerise)
+        val heavyExercise = form.findViewById<MaterialCardView>(R.id.cardview_heavyExcerise)
+
         val inputName: String =
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_name).text.toString()
         val genderRadioMale = form.findViewById<RadioButton>(R.id.profile_editprofile_gender_male)
@@ -170,8 +219,17 @@ class Fragment_Profile : Fragment() {
             form.findViewById<EditText>(R.id.profile_editprofile_inputfield_weight).text.toString()
                 .toDoubleOrNull()
         val weightValue = if (weight != null) String.format("%.1f", weight).toDouble() else null
+        var exercise = 0
+        if (littleExercise.isChecked) {
+            exercise = 1
+        } else if (moderateExercise.isChecked) {
+            exercise = 2
+        } else if (heavyExercise.isChecked) {
+            exercise = 3
+        }
+
         var strResult = ""
-        if (inputName.equals("") || age == null || age == 0 || height == null || height == 0.0 || weight == null || weight == 0.0) {
+        if (inputName.equals("") || age == null || age == 0 || height == null || height == 0.0 || weight == null || weight == 0.0 || exercise == 0) {
             strResult = "INVALID INPUT! Please fill in your"
             if (inputName.equals("")) {
                 strResult += "\n-Name"
@@ -185,6 +243,9 @@ class Fragment_Profile : Fragment() {
             if (weight == null || weight == 0.0) {
                 strResult += "\n-Weight"
             }
+            if (exercise == 0) {
+                strResult += "\n-Exercise"
+            }
         } else {
             dbHelper_profile.createProfile(
                 DataRecord_Profile(
@@ -192,7 +253,8 @@ class Fragment_Profile : Fragment() {
                     age,
                     genderSelected,
                     weightValue!!,
-                    heightValue!!
+                    heightValue!!,
+                    exercise
                 )
             )
             strResult = "SUCCESSFULLY updated profile!"

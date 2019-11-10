@@ -18,6 +18,7 @@
     <string name="goal_fatsHeader">Fats</string>
     <string name="goal_sugarHeader">Sugar</string>
     <string name="goal_sodiumHeader">Sodium</string>
+    <string name="goal_tooltip">* Secondary bar indicates last meal</string>
     <string name="pointsnoshow_headerValue">No previous points records</string>
     <string name="points_headerName">Points</string>
     <string name="points_pointsClaimButton">CLAIM</string>
@@ -57,6 +58,7 @@
     <string name="profile_textview_ageTitle">Age</string>
     <string name="profile_textview_heightTitle">Height</string>
     <string name="profile_textview_weightTitle">Weight</string>
+    <string name="profile_textview_exerciseTitle">Exercise</string>
 
 
     //PROFILE EDIT FORM
@@ -81,6 +83,7 @@
     <string name="textview_fatsHeader">Fats:</string>
     <string name="textview_sugarHeader">Sugar:</string>
     <string name="textview_sodiumHeader">Sodium:</string>
+
 
     //MAP STRINGS
     <string name="title_activity_maps">Map</string>

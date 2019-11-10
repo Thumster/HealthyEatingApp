@@ -20,7 +20,7 @@ class DBHelper_Profile(context: Context) :
         val DATABASE_VERSION = 1
         val DATABASE_NAME = TableInfo_Profile.TABLE_NAME + ".db"
         var BMR: Int = 0
-        val emptyProfile = DataRecord_Profile("", 0, Gender.MALE, 0.00, 0.00)
+        val emptyProfile = DataRecord_Profile("", 0, Gender.MALE, 0.00, 0.00, 0)
         var user: DataRecord_Profile = emptyProfile
 
         private val SQL_CREATE_ENTRIES =
@@ -29,7 +29,8 @@ class DBHelper_Profile(context: Context) :
                     TableInfo_Profile.COLUMN_AGE + " INTEGER," +
                     TableInfo_Profile.COLUMN_GENDER + " TEXT," +
                     TableInfo_Profile.COLUMN_WEIGHT + " DOUBLE," +
-                    TableInfo_Profile.COLUMN_HEIGHT + " DOUBLE" + ")"
+                    TableInfo_Profile.COLUMN_HEIGHT + " DOUBLE," +
+                    TableInfo_Profile.COLUMN_EXERCISE + " INTEGER" + ")"
 
         private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " +
                 TableInfo_Profile.TABLE_NAME
@@ -66,6 +67,7 @@ class DBHelper_Profile(context: Context) :
         values.put(TableInfo_Profile.COLUMN_GENDER, profile.gender.toString())
         values.put(TableInfo_Profile.COLUMN_WEIGHT, profile.weight)
         values.put(TableInfo_Profile.COLUMN_HEIGHT, profile.height)
+        values.put(TableInfo_Profile.COLUMN_EXERCISE, profile.exercise)
 
         val newRowId = db.insert(TableInfo_Profile.TABLE_NAME, null, values)
         BMR = calculateBMR(profile)
@@ -89,6 +91,7 @@ class DBHelper_Profile(context: Context) :
         var gender: String
         var weight: Double
         var height: Double
+        var exercise: Int
         if (cursor.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 name = cursor.getString(cursor.getColumnIndex(TableInfo_Profile.COLUMN_NAME))
@@ -96,12 +99,14 @@ class DBHelper_Profile(context: Context) :
                 gender = cursor.getString(cursor.getColumnIndex(TableInfo_Profile.COLUMN_GENDER))
                 weight = cursor.getDouble(cursor.getColumnIndex(TableInfo_Profile.COLUMN_WEIGHT))
                 height = cursor.getDouble(cursor.getColumnIndex(TableInfo_Profile.COLUMN_HEIGHT))
+                exercise = cursor.getInt(cursor.getColumnIndex(TableInfo_Profile.COLUMN_EXERCISE))
                 profile = DataRecord_Profile(
                     name,
                     age,
                     Gender.valueOf(gender),
                     weight,
-                    height
+                    height,
+                    exercise
                 )
                 cursor.moveToNext()
             }
@@ -118,6 +123,7 @@ class DBHelper_Profile(context: Context) :
         var height = profile.height
         var weight = profile.weight
         var gender = profile.gender
+        var exercise = profile.exercise
         var BMR: Double
 
         if (gender == Gender.MALE) {
@@ -126,6 +132,15 @@ class DBHelper_Profile(context: Context) :
             BMR = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
         }
 
-        return (BMR * 1.55).toInt()
+        if (exercise == 1) {
+            BMR *= 1.2
+        } else if (exercise == 2) {
+            BMR *= 1.55
+        } else if (exercise == 3) {
+            BMR *= 2
+        }
+
+
+        return BMR.toInt()
     }
 }

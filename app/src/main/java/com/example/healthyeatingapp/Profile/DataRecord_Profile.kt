@@ -8,5 +8,6 @@ class DataRecord_Profile(
     val age: Int,
     val gender: Gender,
     val weight: Double,
-    val height: Double
+    val height: Double,
+    val exercise: Int
 )
