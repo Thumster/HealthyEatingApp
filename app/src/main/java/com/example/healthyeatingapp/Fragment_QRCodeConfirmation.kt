@@ -40,12 +40,12 @@ class Fragment_QRCodeConfirmation : Fragment() {
 
         name.text = food.name
         price.text = "S$  " + food.price.toString()
-        calories.text = food.calories.toString()
-        fats.text = food.fats.toString()
-        protein.text = food.protein.toString()
-        carbohydrate.text = food.carbohydrate.toString()
-        sodium.text = food.sodium.toString()
-        sugar.text = food.sugar.toString()
+        calories.text = food.calories.toString() + " kcal"
+        fats.text = food.fats.toString() + " g"
+        protein.text = food.protein.toString() + " g"
+        carbohydrate.text = food.carbohydrate.toString() + " g"
+        sodium.text = food.sodium.toString() + " mg"
+        sugar.text = food.sugar.toString() + " g"
 
         return view
     }
