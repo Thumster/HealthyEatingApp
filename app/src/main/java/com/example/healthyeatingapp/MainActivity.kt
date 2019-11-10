@@ -140,8 +140,7 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                         val myIntent = Intent(this, MapsActivity::class.java)
                         startActivity(myIntent)
 
-
-                        return@OnNavigationItemSelectedListener true
+//                        return@OnNavigationItemSelectedListener true
                     } else {
                         setupLocationPermission()
                     }
