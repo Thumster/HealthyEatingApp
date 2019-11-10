@@ -8,6 +8,7 @@
     <string name="navigation_maps">MAPS</string>
     <string name="navigation_profile">PROFILE</string>
 
+
     //DASHBOARD PAGE
     <string name="goalnoshow_headerValue">Please create a profile first</string>
     <string name="goal_headerName">Today\'s Goal</string>
@@ -17,15 +18,17 @@
     <string name="goal_fatsHeader">Fats</string>
     <string name="goal_sugarHeader">Sugar</string>
     <string name="goal_sodiumHeader">Sodium</string>
-    <string name="pointsnoshow_headerValue">No previous points record</string>
+    <string name="pointsnoshow_headerValue">No previous points records</string>
     <string name="points_headerName">Points</string>
     <string name="points_pointsClaimButton">CLAIM</string>
     <string name="food_headerName">Past Meals</string>
+    <string name="foodnoshow_headerValue">No past meals</string>
 
 
     //QR Code
     <string name="qrcode_title">Scan QR Code</string>
     <string name="qrcode_subtitle">Hold your camera to scan a QR Code for a food item. Please make sure it is by a valid vendor!</string>
+
 
     //QR Code Confirmation
     <string name="qrcodeconfirmation_textview_caloriesTitle">Calories:  </string>
@@ -36,6 +39,7 @@
     <string name="qrcodeconfirmation_textview_sugarTitle">Sugar:  </string>
     <string name="qrcodeconfirmation_button_confirm">CONFIRM</string>
 
+
     //WALLET
     <string name="wallet_textview_balanceTitle">Balance: </string>
     <string name="wallet_textview_transactionsTitle">Transactions</string>
@@ -43,6 +47,7 @@
     <string name="wallet_textview_notransactions">No Past Transactions</string>
     <string name="wallet_edittext_hint_amount">Amount</string>
     <string name="wallet_edittext_helper_amount">Enter Amount in S$</string>
+
 
     //PROFILE
     <string name="profile_button_delete">DELETE</string>
@@ -52,6 +57,7 @@
     <string name="profile_textview_ageTitle">Age</string>
     <string name="profile_textview_heightTitle">Height</string>
     <string name="profile_textview_weightTitle">Weight</string>
+
 
     //PROFILE EDIT FORM
     <string name="profile_header">EDIT PROFILE</string>
@@ -66,6 +72,15 @@
     <string name="profile_helper_height">Enter your height in CM</string>
     <string name="profile_hint_weight">Weight</string>
     <string name="profile_helper_weight">Enter your weight in KG</string>
+
+
+    //FOOD CARD
+    <string name="textview_caloriesHeader">Calories:</string>
+    <string name="textview_carbohydratesHeader">Carbohydrates: </string>
+    <string name="textview_proteinHeader">Protein:</string>
+    <string name="textview_fatsHeader">Fats:</string>
+    <string name="textview_sugarHeader">Sugar:</string>
+    <string name="textview_sodiumHeader">Sodium:</string>
 
     //MAP STRINGS
     <string name="title_activity_maps">Mappo</string>

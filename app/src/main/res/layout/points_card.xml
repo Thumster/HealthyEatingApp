@@ -29,8 +29,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1.5"
-                android:gravity="left"
-                android:text="CHICKEN RICEeeee" />
+                android:gravity="left" />
 
 
             <TextView

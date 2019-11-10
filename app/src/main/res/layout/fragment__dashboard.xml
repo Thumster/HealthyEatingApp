@@ -483,24 +483,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                    <!--                    app:rcIconBackgroundColor="@color/progressBackgroundGreen"-->
-                    <!--                    app:rcIconPadding="4dp"-->
-                    <!--                    app:rcIconSize="40dp"-->
-                    <!--                    app:rcIconSrc="@drawable/ic_burn"-->
-                    <!--                    app:rcIconWidth="40dp"-->
-                    <!--                    app:rcIconHeight="40dp"-->
-                    <!--                    app:rcIconPaddingBottom="4dp"-->
-                    <!--                    app:rcIconPaddingLeft="4dp"-->
-                    <!--                    app:rcIconPaddingRight="4dp"-->
-                    <!--                    app:rcIconPaddingTop="4dp"-->
-                    <!--                    app:rcIconPadding="dimension"-->
-                    <!--                    app:rcIconSize="dimension"-->
-                    <!--                    app:rcMax="float"-->
-                    <!--                    app:rcProgress="float"-->
-                    <!--                    app:rcSecondaryProgress="float"-->
-                    <!--                    app:rcSecondaryProgressColor="color" -->
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -731,6 +713,19 @@
                         app:layout_constraintHeight_min="75dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/foodIconCardView">
+
+                        <TextView
+                            android:id="@+id/foodNoShowHeaderName"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/foodnoshow_headerValue"
+                            android:textSize="20dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
                             android:id="@+id/foodScrollView"

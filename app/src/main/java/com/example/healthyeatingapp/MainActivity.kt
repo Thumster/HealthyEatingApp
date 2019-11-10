@@ -136,13 +136,6 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
                 }
                 R.id.navigation_map -> {
                     if (locationPermissionGrantedFlag == 1) {
-//                        val fragment = Fragment_Maps()
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.main_fragmentLayout,
-//                            fragment,
-//                            fragment.javaClass.getSimpleName()
-//                        )
-//                            .commit()
 
                         val myIntent = Intent(this, MapsActivity::class.java)
                         startActivity(myIntent)
@@ -186,11 +179,6 @@ class MainActivity : AppCompatActivity(), Fragment_QRcode.OnFragmentInteractionL
 
             if (balance >= foodPrice) {
                 dbHelper_food.insertFood(food)
-
-//                var foods = dbHelper_food.readAllFoods()
-//                var str: String = ""
-//                for (food in foods)
-//                    str += food.name + "\n"
 
                 val date_and_time = sdf.format(Date())
                 dbHelper_transaction.insertTransaction(

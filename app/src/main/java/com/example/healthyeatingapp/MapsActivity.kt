@@ -1,46 +1,21 @@
 package com.example.healthyeatingapp
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import android.graphics.Color.parseColor
-import android.graphics.Color.colorToHSV
-import android.graphics.drawable.Drawable
-import com.google.android.gms.maps.model.BitmapDescriptor
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.location.Location
-import android.media.Image
-import android.text.SpannableStringBuilder
+import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.util.function.BiConsumer
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -224,21 +199,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setUpMap() {
         mMap?.isMyLocationEnabled = true
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) {
-                location->
+        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
-                    17.0f))
+                mMap?.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        currentLatLng,
+                        17.0f
+                    )
+                )
             }
         }
     }
 
     private fun startLocationUpdates() {
-        fusedLocationClient.requestLocationUpdates(locationRequest,
-            locationCallback, null)
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback, null
+        )
     }
 
     private fun createLocationRequest() {
@@ -265,9 +245,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    public override  fun onResume() {
+    public override fun onResume() {
         super.onResume()
-        if (!locationUpdateState){
+        if (!locationUpdateState) {
             startLocationUpdates()
         }
     }

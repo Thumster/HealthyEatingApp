@@ -24,6 +24,7 @@ import com.example.healthyeatingapp.Points.DBHelper_Points
 import com.example.healthyeatingapp.Food.DBHelper_Food
 import com.example.healthyeatingapp.Food.DataRecord_Food
 import com.example.healthyeatingapp.Points.DataRecord_Points
+import com.example.healthyeatingapp.Points.FoodAdapter
 import com.example.healthyeatingapp.Points.PointsAdapter
 import com.example.healthyeatingapp.Profile.DBHelper_Profile
 import com.example.healthyeatingapp.Profile.DataRecord_Profile
@@ -99,12 +100,18 @@ class Fragment_Dashboard : Fragment() {
     private lateinit var pointsCardView: CardView
     private lateinit var pointsText: TextView
     private lateinit var foodExpandableView: ConstraintLayout
+    private lateinit var foodScrollView: LinearLayout
+    private lateinit var foodNoShowView: TextView
     private lateinit var foodArrowBtn: Button
     private lateinit var foodCardView: CardView
 
     private lateinit var pointsRecyclerView: RecyclerView
     private lateinit var pointsViewAdapter: RecyclerView.Adapter<*>
     private lateinit var pointsViewManager: RecyclerView.LayoutManager
+
+    private lateinit var foodRecyclerView: RecyclerView
+    private lateinit var foodViewAdapter: RecyclerView.Adapter<*>
+    private lateinit var foodViewManager: RecyclerView.LayoutManager
 
     companion object {
 
@@ -131,28 +138,29 @@ class Fragment_Dashboard : Fragment() {
         pointsExpandableView = view.findViewById<ConstraintLayout>(R.id.pointsExpandableView)
         pointsScrollView = pointsExpandableView.findViewById(R.id.pointsScrollView)
         pointsNoShowView = pointsExpandableView.findViewById(R.id.pointsNoShowHeaderName)
-
-
-        checkToAddFood()
-        loadDb()
-
-        pointsClaimButton = view.findViewById<Button>(R.id.pointsClaimButton)
-        pointsClaimButton.setOnClickListener {
-            claimPoints()
-        }
         pointsArrowBtn = view.findViewById<Button>(R.id.pointsArrowBtn)
         pointsCardView = view.findViewById<CardView>(R.id.pointsCardView)
 
-        pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
-        pointsArrowBtn.setOnClickListener {
-            if (pointsExpandableView.getVisibility() == View.GONE) {
-                pointsExpandableView.setVisibility(View.VISIBLE)
-                pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp)
-            } else {
-                pointsExpandableView.setVisibility(View.GONE)
-                pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
-            }
+        foodExpandableView = view.findViewById<ConstraintLayout>(R.id.foodExpandableView)
+        foodScrollView = foodExpandableView.findViewById(R.id.foodScrollView)
+        foodNoShowView = foodExpandableView.findViewById(R.id.foodNoShowHeaderName)
+        foodArrowBtn = view.findViewById<Button>(R.id.foodArrowBtn)
+        foodCardView = view.findViewById<CardView>(R.id.foodCardView)
+
+        goalNoShowCardView = view.findViewById<CardView>(R.id.goalNoShowCardView)
+        goalCardView = view.findViewById<CardView>(R.id.goalCardView)
+        goalExpandableView = view.findViewById<ConstraintLayout>(R.id.goalExpandableView)
+        goalArrowBtn = view.findViewById<Button>(R.id.goalArrowBtn)
+        goalCardView = view.findViewById<CardView>(R.id.goalCardView)
+        pointsClaimButton = view.findViewById<Button>(R.id.pointsClaimButton)
+
+        loadDb()
+
+
+        pointsClaimButton.setOnClickListener {
+            claimPoints()
         }
+
         pointsViewManager = LinearLayoutManager(activity)
         pointsViewAdapter = PointsAdapter(allPoints)
         pointsRecyclerView =
@@ -160,13 +168,16 @@ class Fragment_Dashboard : Fragment() {
                 layoutManager = pointsViewManager
                 adapter = pointsViewAdapter
             }
-//        pointsViewAdapter.notifyDataSetChanged()
 
-        goalNoShowCardView = view.findViewById<CardView>(R.id.goalNoShowCardView)
-        goalCardView = view.findViewById<CardView>(R.id.goalCardView)
-        goalExpandableView = view.findViewById<ConstraintLayout>(R.id.goalExpandableView)
-        goalArrowBtn = view.findViewById<Button>(R.id.goalArrowBtn)
-        goalCardView = view.findViewById<CardView>(R.id.goalCardView)
+        foodViewManager = LinearLayoutManager(activity)
+        foodViewAdapter = FoodAdapter(allMeals)
+        foodRecyclerView =
+            view.findViewById<RecyclerView>(R.id.foodRecyclerView).apply {
+                layoutManager = foodViewManager
+                adapter = foodViewAdapter
+            }
+
+
 
         if (currentUser?.name.equals("")) {
             goalNoShowCardView.visibility = View.VISIBLE
@@ -283,13 +294,19 @@ class Fragment_Dashboard : Fragment() {
             })
         }
 
-
-        foodExpandableView = view.findViewById<ConstraintLayout>(R.id.foodExpandableView)
-        foodArrowBtn = view.findViewById<Button>(R.id.foodArrowBtn)
-        foodCardView = view.findViewById<CardView>(R.id.foodCardView)
+        pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
+        pointsArrowBtn.setOnClickListener {
+            if (pointsExpandableView.getVisibility() == View.GONE) {
+                pointsExpandableView.setVisibility(View.VISIBLE)
+                pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp)
+            } else {
+                pointsExpandableView.setVisibility(View.GONE)
+                pointsArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
+            }
+        }
 
         foodArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
-        foodArrowBtn.setOnClickListener(View.OnClickListener {
+        foodArrowBtn.setOnClickListener {
             if (foodExpandableView.getVisibility() == View.GONE) {
                 foodExpandableView.setVisibility(View.VISIBLE)
                 foodArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp)
@@ -297,7 +314,7 @@ class Fragment_Dashboard : Fragment() {
                 foodExpandableView.setVisibility(View.GONE)
                 foodArrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp)
             }
-        })
+        }
 
         return view
     }
@@ -330,6 +347,7 @@ class Fragment_Dashboard : Fragment() {
         }
         if (!todaysMeals.isEmpty()) {
             lastMeal = todaysMeals.first()
+            checkToAddFood()
         }
         pastMeals =
             ArrayList(allMeals.filter { dateTimeStrToLocalDateTime(selector(it)) < localDateTime })
@@ -341,39 +359,65 @@ class Fragment_Dashboard : Fragment() {
             pointsNoShowView.visibility = View.VISIBLE
         }
 
+        if (allMeals.isEmpty()) {
+            foodScrollView.visibility = View.GONE
+            foodNoShowView.visibility = View.VISIBLE
+        }
+
         totalPoints = DBHelper_Points.totalPoints
         pointsText.text = totalPoints.toString()
+
+
     }
 
     fun checkToAddFood() {
         if (toAddFood != null && !currentUser?.name.equals("")) {
             var pointsToAdd = 0
             val currentFood = toAddFood!!
-            if ((currentFood.carbohydrate > 0) && todaysCarbohydrates <= recommendedCarbohydrates) {
-                pointsToAdd++
+            if (currentFood.carbohydrate > 0) {
+                if (todaysCarbohydrates <= recommendedCarbohydrates) {
+                    pointsToAdd++
+                } else {
+                    pointsToAdd--
+                }
             }
-            if ((currentFood.protein > 0) && todaysProtein <= recommendedProtein) {
-                pointsToAdd++
+            if (currentFood.protein > 0) {
+                if (todaysProtein <= recommendedProtein) {
+                    pointsToAdd++
+                } else {
+                    pointsToAdd--
+                }
             }
-            if ((currentFood.fats > 0) && todaysFats <= recommendedFats) {
-                pointsToAdd++
+            if (currentFood.fats > 0) {
+                if (todaysFats <= recommendedFats) {
+                    pointsToAdd++
+                } else {
+                    pointsToAdd--
+                }
             }
-            if ((currentFood.sugar > 0) && todaysSugar <= recommendedSugar) {
-                pointsToAdd++
+            if (currentFood.sugar > 0) {
+                if (todaysSugar <= recommendedSugar) {
+                    pointsToAdd++
+                } else {
+                    pointsToAdd--
+                }
             }
-            if ((currentFood.sodium > 0) && todaysSodium <= recommendedSodium) {
-                pointsToAdd++
+            if (currentFood.sodium > 0) {
+                if (todaysSodium <= recommendedSodium) {
+                    pointsToAdd++
+                } else {
+                    pointsToAdd--
+                }
             }
-            if (pointsToAdd > 0) {
-                totalPoints += pointsToAdd
-                pointsText.text = totalPoints.toString()
+            if (pointsToAdd != 0) {
                 val newPoint = DataRecord_Points(currentFood.name, pointsToAdd, sdf.format(Date()))
                 dbhelper_points.insertPoints(newPoint)
-                allPoints.add(0, newPoint)
-
-                pointsScrollView.visibility = View.VISIBLE
-                pointsNoShowView.visibility = View.GONE
             }
+//                totalPoints += pointsToAdd
+//                pointsText.text = totalPoints.toString()
+//                allPoints.add(0, newPoint)
+//                pointsScrollView.visibility = View.VISIBLE
+//                pointsNoShowView.visibility = View.GONE
         }
     }
 
